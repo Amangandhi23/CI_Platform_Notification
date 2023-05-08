@@ -7,8 +7,8 @@ let Cityarr = [];
 let Themearr = [];
 let Skillarr = [];
 let Sortarr = [];
-
-
+let pagenumber;
+let valueofview ="";
 
 /*MissionCount Print */
 
@@ -132,7 +132,8 @@ $('#filter_btn').on('click', function () {
             skill: Skillarr,
             theme: Themearr,
             Sort: Sortarr,
-            search:input
+            search: input,
+            page: pagenumber
         },
         dataType: 'html',
 
@@ -143,6 +144,10 @@ $('#filter_btn').on('click', function () {
             } else {
                 $('#MissionNotFound').hide();
                 $('#pid').html(data);
+            }
+
+            if (valueofview == "list") {
+                $('#list_btn_click').click();
             }
 
         }
@@ -157,7 +162,10 @@ $("#Reload_page").click(function () {
     location.reload(true);
 });
 
-
+function PageChangejs(pageNumber) {
+    pagenumber = pageNumber;
+    $('#filter_btn').click();
+}
 
 
 

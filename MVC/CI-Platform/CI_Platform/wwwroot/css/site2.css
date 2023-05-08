@@ -866,24 +866,6 @@ textarea.form-control, .form-floating > textarea.form-control:focus, .form-float
     position: relative;
 }
 
-    /* .img_set {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: visible;
-  } */
-
-   /* .container-fluid:hover {
-        background-color: #505050;
-    }
-*/
-
-/*.sharestoryimagepreview:hover {
-    background-color: #505050; 
-}*/
-
 .storyhoverClass:hover .sharestoryimagepreview {
     background-color: #505050;
     opacity:0.2;
@@ -926,14 +908,13 @@ textarea.form-control, .form-floating > textarea.form-control:focus, .form-float
 
 
 .btn_share_story {
-    border-radius: 24px;
-}
-
-.text {
-    color: white;
     font-size: 16px;
     padding: 16px 32px;
+    border-radius: 24px;
+    color: black;
+    border-color: black;
 }
+
 
 /* .text_for_small{
       font-size: smaller;

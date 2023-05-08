@@ -1,11 +1,23 @@
-﻿@*
+﻿@using CI_Platform.Entities.ViewModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 @model CI_Platform.Entities.ViewModel.Mission_data
 
+@{
+    Mission_data pager = new Mission_data();
 
+    int pageNo = 0;
+
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+
+}
 
 
 
@@ -16,7 +28,7 @@
     <p class="d-none" id="PartialMissionCount">@Model.Mission.Count()</p>
 
     <div class="container" id="grid-view">
-
+        <input hidden class="gridlistvalue" value="grid" type="text"> 
         <div class="row" id="gridmission__row">
 
             @foreach (var item in Model.Mission)
@@ -36,11 +48,6 @@
                                 <img class="card-img-top mission_cardimg" height="220" width="300" src="~/Assest/emptyimage.png" alt="Card image cap">
                             }
                         }
-
-
-
-
-
                         <div class="card-img ">
                             <div class="align-item-end loc">
                                 <i class="bi bi-geo-alt"></i>
@@ -255,12 +262,13 @@
 
             }
         </div>
-        
+
     </div>
 
 
 
     <div id="list-view" style="display:none;">
+    <input hidden class="gridlistvalue" value="list" type="text"> 
         <div class="container d-none d-md-block" id="list_view">
             @foreach (var item in Model.Mission)
             {
@@ -279,7 +287,7 @@
                                 }
                                 else
                                 {
-                                    <img class="card-img-top h-100" src="~/Assest/emptyimage.png" alt="Card image cap">
+                                    <img class="card-img-top img-fluid h-100" src="~/Assest/emptyimage.png" alt="Card image cap">
                                 }
 
                             }
@@ -436,7 +444,7 @@
                                         else
                                         {
                                             <a type="button" class="btn btn_hover_for_landing1 btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
-                                                Mission Closed 
+                                                Mission Closed
                                             </a>
                                         }
                                     }
@@ -464,7 +472,7 @@
                                         else
                                         {
                                             <a type="button" class="btn btn_hover_for_landing1 btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
-                                                 Mission Closed
+                                                Mission Closed
                                             </a>
                                         }
 
@@ -488,10 +496,77 @@
     </div>
 
 
+    <nav class="container mt-4" aria-label="Page navigation example">
+        @if (pager.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-center">
 
+                @if(pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" onclick="PageChangejs(1)">
+                         First
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" onclick="PageChangejs(@(pager.CurrentPage -1))">
+                         Previous
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item" style="opacity:0.5">
+                        <a class="page-link">
+                         First
+                        </a>
+                    </li>
+                    <li class="page-item" style="opacity:0.5">
+                        <a class="page-link">
+                         Previous
+                        </a>
+                    </li>
+                }
 
+                @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                {
+                    <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                        <a class="page-link" onclick="PageChangejs(@pge)">
+                            @pge
+                        </a>
+                    </li>
+                }
 
+                @if(pager.CurrentPage < pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" onclick="PageChangejs(@(pager.CurrentPage + 1))">
+                         Next
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" onclick="PageChangejs(@pager.TotalPages)">
+                         Last
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item" style="opacity:0.5">
+                        <a class="page-link">
+                         Next
+                        </a>
+                    </li>
+                    <li class="page-item" style="opacity:0.5">
+                        <a class="page-link">
+                         Last
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
 
+    </nav>
 
 }
 
@@ -522,11 +597,13 @@ else
     function Grid_View() {
         document.getElementById("list-view").style.display = "none";
         document.getElementById("grid-view").style.display = "block";
+        valueofview = "grid";
     }
 
     function List_View() {
         document.getElementById("list-view").style.display = "block";
         document.getElementById("grid-view").style.display = "none";
+        valueofview ="list";
     }
 
     function NoFound_View(){

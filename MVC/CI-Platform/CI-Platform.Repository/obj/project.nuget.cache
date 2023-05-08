@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4H4qtI7zUH1oFY3jfY22dbFsLmAV304J16ZZaHgNRVsOMNmnvYOSPlY1lW4D6U1kWSe3Tm7O60fZhDB/WWZb/w==",
+  "dgSpecHash": "qunEkKuXZcqSbGh6aEV6xS284uiIykLJaW2vROBWt04UlPY1kpEqhmJwYacsytzhMEGmJA2zgBdbSN6CQJimDQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pci14\\Desktop\\CI-P\\MVC\\CI-Platform\\CI-Platform.Repository\\CI-Platform.Repository.csproj",
+  "projectFilePath": "C:\\Users\\pci14\\Desktop\\goodtohave\\MVC\\CI-Platform\\CI-Platform.Repository\\CI-Platform.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pci14\\.nuget\\packages\\analytics\\3.8.1\\analytics.3.8.1.nupkg.sha512",
     "C:\\Users\\pci14\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",

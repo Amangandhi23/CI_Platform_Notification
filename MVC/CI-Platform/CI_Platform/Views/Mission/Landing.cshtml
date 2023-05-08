@@ -9,27 +9,13 @@
 
 @model CI_Platform.Entities.ViewModel.Mission_data;
 
-@*
-    @{
-    Pager pager = new Pager();
-
-    int pageNo = 0;
-
-    if(ViewBag.Pager != null)
-    {
-    pager = ViewBag.Pager;
-    pageNo = pager.CurrentPage;
-    }
-
-    }*@
-
 <!-- 2) SERACH  ROW for small screen size-->
 
 
 <div class="w3-sidebar w3-bar-block  w3-animate-left" style="display:none" id="mySidebar">
     <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Close &times;</button>
     <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+        <a class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
            data-bs-toggle="dropdown" aria-expanded="false">
             <span>Country</span>
 
@@ -46,7 +32,7 @@
         </ul>
     </div>
     <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+        <a class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
            data-bs-toggle="dropdown" aria-expanded="false">
             <span>City</span>
 
@@ -56,7 +42,7 @@
         </ul>
     </div>
     <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+        <a class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
            data-bs-toggle="dropdown" aria-expanded="false">
             <span>Theme</span>
 
@@ -82,7 +68,7 @@
         </ul>
     </div>
     <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+        <a class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
            data-bs-toggle="dropdown" aria-expanded="false">
             <span>Skills</span>
 
@@ -141,7 +127,7 @@
             <input type="search" id="Srch_bar_js" class="form-control-plaintext" placeholder="Search mission...">
         </div>
         <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                data-bs-toggle="dropdown" aria-expanded="false">
                 <span id="country_name">Country</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -159,7 +145,7 @@
             </ul>
         </div>
         <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                data-bs-toggle="dropdown" aria-expanded="false">
                 <span>City</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -179,7 +165,7 @@
             </ul>
         </div>
         <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                data-bs-toggle="dropdown" aria-expanded="false">
                 <span>Theme</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -206,7 +192,7 @@
             </ul>
         </div>
         <div class="dropdown col-sm-auto col-6 mt-2 border_1">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            <a class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
                data-bs-toggle="dropdown" aria-expanded="false">
                 <span>Skills</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -277,7 +263,7 @@
             </div>
             <div class="d-none d-md-block">
                 <img src="~/Assest/grid.png" id="gbtn" type="button" class="btn btn_1" onclick="Grid_View()" alt="">
-                <img src="~/Assest/list.png" type="button" class="btn btn_1" onclick="List_View()" alt="">
+                <img src="~/Assest/list.png" type="button" class="btn btn_1" id="list_btn_click" onclick="List_View()" alt="">
                 <img src="~/Assest/list.png" type="button" class="btn btn_1 hide" onclick="NoFound_View()" id="nom" alt="">
             </div>
         </div>
