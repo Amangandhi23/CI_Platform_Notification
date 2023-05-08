@@ -1,0 +1,33 @@
+﻿@using CI_Platform.Entities.Models
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CI_Platform.Entities.ViewModel.Mission_data;
+
+@{
+     @foreach (var item in Model.comments)
+     {
+        if(item.User.DeletedAt == null)
+        {
+            <div class="row border d-flex flex-row b_w_1"
+               style="border-width: 30px; border-color: slategray;">
+               <div class="col-xl-2 col-lg-3 col-md-2 col-4 p-2">
+               @{
+                    var path = Model.User.FirstOrDefault(avtar => avtar.UserId == item.UserId).Avatar;
+                }
+                    <img src="@path" class="volunteers_comments_img" alt="">
+               </div>
+               <div class="col-xl-10 col-lg-9 col-md-10 col-8 d-flex flex-column">
+                    <h6 style="margin-bottom: 0px!important;">
+                        @item.User.FirstName @item.User.LastName
+                    </h6>
+                    <span class="pt-1">@item.CreatedAt</span>
+                    <span class="pt-2">@item.Commenttext</span>
+               </div>
+         </div>                                  
+        }
+        
+     }
+
+                            
+}

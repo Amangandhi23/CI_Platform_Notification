@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/landing.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script>
+        window.onload = function () {
+            document.getElementById("gbtn").click();
+        };
+    </script>
+
+    <!-- <link href="" rel="stylesheet"> -->
+
+    <title>Platform Landing Page</title>
+</head>
+
+<body>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script>
+        function Grid_View() {
+            document.getElementById("list-view").style.display = "none";
+            document.getElementById("grid-view").style.display = "block";
+        }
+
+        function List_View() {
+            document.getElementById("list-view").style.display = "block";
+            document.getElementById("grid-view").style.display = "none";
+        }
+
+
+    </script>
+
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+
+    <!-- 1) HEADER -->
+
+
+    <nav class="navbar navbar-expand-md navbar-light border-bottom">
+        <div class="container">
+            <div class="d-flex d-block d-md-none justify-content-between">
+                <div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon "></span>
+                </button>
+                </div>
+                <div>
+                    <img src="./Assest/user-img-large.png" alt="mdo" width="40" height="40"
+                    class="rounded-circle img12">    
+                </div>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon "></span>
+                </button>
+                <img src="./Assest/user-img-large.png" alt="mdo" width="40" height="40"
+                            class="rounded-circle"> -->
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active link-dark" aria-current="page" href="#">Stories</a>
+                    </li>
+                    <li class="nav-item dropdown ml-1">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Policy1</a></li>
+                            <li><a class="dropdown-item" href="#">Policy2</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+
+                   
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="./Assest/user-img-large.png" alt="mdo" width="40" height="40"
+                                class="rounded-circle profile_pic">
+                            <span>Evan Donohue</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!-- 2) SERACH  ROW for small screen size-->
+
+
+    <div class="w3-sidebar w3-bar-block  w3-animate-left" style="display:none" id="mySidebar">
+        <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Close &times;</button>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span>Country</span>
+
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">India</a></li>
+                <li><a class="dropdown-item" href="#">Usa</a></li>
+                <li><a class="dropdown-item" href="#">Uk</a></li>
+            </ul>
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span>City</span>
+
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Delhi</a></li>
+                <li><a class="dropdown-item" href="#">Newyork</a></li>
+                <li><a class="dropdown-item" href="#">London</a></li>
+            </ul>
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span>Theme</span>
+
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Environment</a></li>
+                <li><a class="dropdown-item" href="#">Games</a></li>
+                <li><a class="dropdown-item" href="#">TreePlantation</a></li>
+            </ul>
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span>Skills</span>
+
+            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item" href="#">Time Management</a></li>
+                <li><a class="dropdown-item" href="#">Cooking</a></li>
+                <li><a class="dropdown-item" href="#">Leadership</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-block d-md-none">
+        <div class="w3-container d-flex justify-content-between">
+            <input type="search" class="form-control-plaintext" placeholder="Search mission...">
+            <img src="./Assest/filter.png" class="w3-button w3-white w3-xxlarge" onclick="w3_open()" alt="">
+        </div>
+    </div>
+
+    <script>
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+    </script>
+
+
+
+
+
+    <!-- 2) SERACH  ROW -->
+
+    <div class="border-bottom d-none d-md-block ">
+        <div class="row row_one ab ml-2">
+
+            <div class="col-sm-auto col-1 mt-2 srch">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-search img_1" viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                </svg>
+            </div>
+            <div class="col-md-2 col-lg-4 col-xl-4 col-xxl-4 col-sm-3 col-11">
+                <input type="search" class="form-control-plaintext" placeholder="Search mission...">
+            </div>
+            <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>Country</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">India</a></li>
+                    <li><a class="dropdown-item" href="#">Usa</a></li>
+                    <li><a class="dropdown-item" href="#">Uk</a></li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>City</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">Delhi</a></li>
+                    <li><a class="dropdown-item" href="#">Newyork</a></li>
+                    <li><a class="dropdown-item" href="#">London</a></li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>Theme</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">Environment</a></li>
+                    <li><a class="dropdown-item" href="#">Games</a></li>
+                    <li><a class="dropdown-item" href="#">TreePlantation</a></li>
+                </ul>
+            </div>
+            <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>Skills</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">Time Management</a></li>
+                    <li><a class="dropdown-item" href="#">Cooking</a></li>
+                    <li><a class="dropdown-item" href="#">Leadership</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- <div>
+        <div class="pmd-chip pmd-chip-outline-dark"> 
+            <span>Trevor Hensen</span> 
+            <a class="pmd-chip-action" href="javascript:void(0);">
+            <i class="material-icons">close</i></a>
+        </div>
+    </div> -->
+    <!-- <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-auto">
+                    <button type="button" class="alert alert-dark btn-close btn-close-black" aria-label="Close">Environment</button>
+                </div>
+            </div>
+    
+        </div>    
+    </div> -->
+
+    <!-- 3) third row -->
+
+    <div class="container p-2 s1">
+        <div class="row px-1">
+            
+            <div class=" col-auto alert
+        fade show p-1 " role="alert">
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Tree platform
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class="col-auto alert
+        fade show p-1 " role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Canada
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class="col-auto alert
+        fade show p-1" role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Toronto
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class=" col-auto alert
+        fade show p-1 " role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Montreal
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class=" col-auto alert
+        fade show p-1" role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Environment
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class=" col-auto alert
+        fade show p-1" role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Nutrition
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class=" col-auto alert
+        fade show p-1 " role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Anthropology
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+
+            <div class="col-auto alert
+        fade show p-1" role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Environmental
+                    science
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="col-auto alert
+        fade show p-1" role="alert">
+
+                <button type="button" class="btn close p-1 border" data-dismiss="alert" aria-label="Close">Clear All
+                    <span aria-hidden="true">×</span>
+                </button>
+
+            </div>
+
+
+            <!-- <div class="col-auto alert
+        fade show p-1" role="alert">
+
+                <button type="button" class="btn close p-1" data-dismiss="alert" aria-label="Close">clear all
+
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div> -->
+        </div>
+
+    </div>
+
+
+
+    <!-- 4)main content -->
+    <div class="container p-3">
+        <div class="row d-flex justify-content-between">
+            <div class="col-auto  mb-2">
+                <span class="">Explore<strong> 72 Missions</strong></span>
+            </div>
+            <div class="col-auto d-flex">
+                <div class="abc btn_1">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Sort By</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+
+                <div>
+                    <img src="./Assest/grid.png" id="gbtn" type="button" class="btn btn_1" onclick="Grid_View()" alt="">
+                    <img src="./Assest/list.png" type="button" class="btn btn_1" onclick="List_View()" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- 4) cards -->
+
+    <div class="container" id="grid-view">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="./Assest/Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc">
+                            <i class="bi bi-geo-alt"></i>
+                            Toronto
+                        </div>
+                        <div class="heart">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env">
+                        <span>Environment</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title" style="color: solid black;">Grow-Trees-On-the-path-to-environment-sustainability</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="margin_for_1024">Tree Canada</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mb-2">
+                            <span class="border date_1"> From 10/01/2019 until 25/02/2019 </span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="margin_right_date">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mb-1" src="./Assest/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            Melbourne
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_1">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_1">
+                        <span>Children</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mrg_bottom mb-4">Education Supplies for Every Pair of Shoes Sold</h5>
+                        <p class="card-text text_marg">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="col-lg-5">Australian Paradise</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mrg_date mb-2">
+                            <span class="border date_1">From 10/01/2019 until 25/02/2019</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <img src="./Assest/Already-volunteered.png" alt="">
+                                <span>250</span>
+
+                            </div>
+                            <div class="margin_right_date">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3 mrg_123">
+                            <span>Already volunteered</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mt-0" src="./Assest/Nourish-the-Children-in--African-country-1.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            Barcelona
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_1">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_2">
+                        <span>Nutrition</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Nourish the Children in African country</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3 margin_1024_1">
+                            <span>The Hunger</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mb-2 margin_1024_2">
+                            <span class="border date_1">Ongoing Opportunity</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <img src="./Assest/Already-volunteered.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="margin_right_date">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mrg_1024_1" src="./Assest/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            London
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_2">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_4">
+                        <span>Environment</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title c1 mrg_1024_2">CSR initiative stands for Coffee and Farmer Equity</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>CSE Network</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mb-2">
+                            <span class="border date_1 mrg_1024_3">Ongoing Opportunity</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <div>
+                                <img src="./Assest/Already-volunteered.png" alt="">
+                                <span>250</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <span>Already volunteered</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mb-2" src="./Assest/Animal-welfare-&-save-birds-campaign-1.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            Cap Town
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_2">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_4">
+                        <span>Animals</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-4 mrg_768_1">Animal welfare & save birds campaign</h5>
+                        <p class="card-text mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>JR Foundation</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mb-4">
+                            <span class="border date_1">Plant 10,000 Trees</span>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-between mb-2 border-bottom">
+                            <div class="d-flex flex-row">
+                                <div class="">
+                                    <img src="./Assest/Seats-left.png" alt="">
+                                </div>
+                                <div class="d-flex mr_1 flex-column">
+                                    <span>10</span>
+                                    <span>Seats-left</span>        
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="">
+                                    <img src="./Assest/achieved.png" class="" alt="">
+                                </div>
+                                <div class="d-flex flex-column mr_1">
+                                    <div class="deadlinefont"><progress max="10000" value="8000"></progress></div>
+                                    <span class="deadline">8000 achieved</span>        
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="d-flex justify-content-start mb-1">
+                            <div class="col-6">
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+                            </div>
+                            <div class="col-auto d-flex">
+                                <img src="./Assest/achieved.png" class="" alt="">
+                                <div class="deadlinefont"><progress max="10000" value="8000"></progress></div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <span>Seats-left</span>
+                            <span class="deadline">8000 achieved</span>
+
+                        </div> -->
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mb-2" src="./Assest/Plantation-and-Afforestation-programme-1.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            Paris
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_2">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_4">
+                        <span>Health</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Plantation and Afforestation programme</h5>
+                        <p class="card-text pt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Amaze Doctors</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mb-4">
+                            <span class="border date_1">Plant 10,000 Trees</span>
+                        </div>
+                        <!-- <div class="d-flex justify-content-between mb-1">
+                            <div>
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <span>Seats-left</span>
+                        </div> -->
+
+                        <div class="d-flex flex-row mb-2 border-bottom mrg_1024_4">
+                                <div class="">
+                                    <img src="./Assest/achieved.png" class="" alt="">
+                                </div>
+                                <div class="d-flex flex-column mr_1">
+                                    <div class="deadlinefont"><progress max="10000" value="8000"></progress></div>
+                                    <span class="deadline">8000 achieved</span>        
+                                </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mb-3" src="./Assest/Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc">
+                            <i class="bi bi-geo-alt"></i>
+                            New York
+                        </div>
+                        <div class="heart">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env">
+                        <span>Education</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">Grow-Trees-On-the-path-to-environment-sustainability</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                            in reprehenderit...</p>
+                        <div class="d-flex justify-content-between mb-5">
+                            <span>Tree Canada</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-5 mb-2">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">View details
+                                <img src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top mb-3" src="./Assest/Education-Supplies-for-Every--Pair-of-Shoes-Sold-2.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            Sydney
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_1">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_1">
+                        <span>Children</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-2">Education Supplies for Every Pair of Shoes Sold</h5>
+                        <p class="card-text  mrg_768_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="col-lg-5">Australian Paradise</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mb-3">
+                            <span class="border date_1 mb-3">From 10/01/2019 until 25/02/2019</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <img src="./Assest/Already-volunteered.png" alt="">
+                                <span>250</span>
+
+                            </div>
+                            <div class="margin_right_date">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-4">
+                            <span>Already volunteered</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="./Assest/Nourish-the-Children-in--African-country-1.png"
+                        alt="Card image cap">
+                    <div class="card-img">
+                        <div class="align-item-end loc_1">
+                            <i class="bi bi-geo-alt"></i>
+                            Berlin
+                        </div>
+                        <div class="heart_1">
+                            <img src="./Assest/heart.png" alt="">
+                        </div>
+                        <div class="add_friend_1">
+                            <img src="./Assest/add1.png" alt="">
+                        </div>
+                    </div>
+                    <div class="env_2">
+                        <span>Nutrition</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Nourish the Children in African country</h5>
+                        <p class="card-text mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Junior Charity</span>
+                            <div>
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/selected-star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                                <img src="./Assest/star.png" alt="">
+                            </div>
+                        </div>
+                        <div class=" d-flex justify-content-center mrg_btm mb-3">
+                            <span class="border date_1 ">Ongoing Opportunity</span>
+                        </div>
+                        <div class="d-flex justify-content-between mrg_btm2">
+                            <div>
+                                <img src="./Assest/Already-volunteered.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="margin_right_date">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between border-bottom mb-3">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-outline-primary btn_border w-50 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+    <div id="list-view">
+        <div class="container d-none d-md-block">
+            <div class="card">
+                <div class="row">
+                    <div class="col-3 list_card list_view_div">
+                        <img class="img-fluid  h-100"
+                            src="./Assest/Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+                            alt="Card image cap">
+                            <div class="card-img">
+                                <div class="align-item-end loc_l1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Toronto
+                                </div>
+                                <div class="heart_l1">
+                                    <img src="./Assest/heart.png" alt="">
+                                </div>
+                                <div class="add_friend_l1">
+                                    <img src="./Assest/add1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="theme_list">
+                                Environment
+                            </div>
+
+                    </div>
+
+
+                    <div class="col-9">
+                        <h5 class="card-title">Grow-Trees-On-the-path-to-environment-sustainability</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex flex-direction-row justify-content-between mb-3">
+                            <div class=" d-flex flex-direction-row justify-content-between mb-3">
+                                <span>Tree Canada</span>
+                                <div class="list_img">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                </div>
+                            </div>
+                            <div class="justify-content-center mr-1">
+                                <span class="border date_1"> From 10/01/2019 until 25/02/2019 </span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <div>
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center mb-1">
+                            <button type="button" class="btn btn-outline-primary btn_border w-25 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-3 list_card list_view_div">
+                        <img class="img-fluid  h-100"
+                            src="./Assest/Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+                            alt="Card image cap">
+                            <div class="card-img">
+                                <div class="align-item-end loc_l1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Toronto
+                                </div>
+                                <div class="heart_l1">
+                                    <img src="./Assest/heart.png" alt="">
+                                </div>
+                                <div class="add_friend_l1">
+                                    <img src="./Assest/add1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="theme_list">
+                                Environment
+                            </div>
+
+                    </div>
+
+                    <div class="col-9">
+                        <h5 class="card-title">Grow-Trees-On-the-path-to-environment-sustainability</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex flex-direction-row justify-content-between mb-3">
+                            <div class=" d-flex flex-direction-row justify-content-between mb-3">
+                                <span>Tree Canada</span>
+                                <div class="list_img">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                </div>
+                            </div>
+                            <div class="justify-content-center mr-1">
+                                <span class="border date_1"> From 10/01/2019 until 25/02/2019 </span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <div>
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center mb-1">
+                            <button type="button" class="btn btn-outline-primary btn_border w-25 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-3 list_card list_view_div">
+                        <img class="img-fluid  h-100"
+                            src="./Assest/Nourish-the-Children-in--African-country-1.png"
+                            alt="Card image cap">
+                            <div class="card-img">
+                                <div class="align-item-end loc_l1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Toronto
+                                </div>
+                                <div class="heart_l1">
+                                    <img src="./Assest/heart.png" alt="">
+                                </div>
+                                <div class="add_friend_l1">
+                                    <img src="./Assest/add1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="theme_list">
+                                Environment
+                            </div>
+
+                    </div>
+
+                    <div class="col-9">
+                        <h5 class="card-title">Grow-Trees-On-the-path-to-environment-sustainability</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex flex-direction-row justify-content-between mb-3">
+                            <div class=" d-flex flex-direction-row justify-content-between mb-3">
+                                <span>Tree Canada</span>
+                                <div class="list_img">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                </div>
+                            </div>
+                            <div class="justify-content-center mr-1">
+                                <span class="border date_1"> From 10/01/2019 until 25/02/2019 </span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <div>
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center mb-1">
+                            <button type="button" class="btn btn-outline-primary btn_border w-25 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-3 list_card list_view_div">
+                        <img class="img-fluid  h-100"
+                            src="./Assest/Nourish-the-Children-in--African-country-1.png"
+                            alt="Card image cap">
+                            <div class="card-img">
+                                <div class="align-item-end loc_l1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    Toronto
+                                </div>
+                                <div class="heart_l1">
+                                    <img src="./Assest/heart.png" alt="">
+                                </div>
+                                <div class="add_friend_l1">
+                                    <img src="./Assest/add1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="theme_list">
+                                Environment
+                            </div>
+
+                    </div>
+
+                    <div class="col-9">
+                        <h5 class="card-title">Grow-Trees-On-the-path-to-environment-sustainability</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore...</p>
+                        <div class="d-flex flex-direction-row justify-content-between mb-3">
+                            <div class=" d-flex flex-direction-row justify-content-between mb-3">
+                                <span>Tree Canada</span>
+                                <div class="list_img">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/selected-star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                    <img src="./Assest/star.png" alt="">
+                                </div>
+                            </div>
+                            <div class="justify-content-center mr-1">
+                                <span class="border date_1"> From 10/01/2019 until 25/02/2019 </span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <div>
+                                <img src="./Assest/Seats-left.png" alt="">
+                                <span>10</span>
+
+                            </div>
+                            <div class="">
+                                <img src="./Assest/deadline.png" alt="">
+                                <span>09/01/2019</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-direction-row justify-content-between">
+                            <span>Seats-left</span>
+                            <span class="deadline">Deadline</span>
+                        </div>
+                        <div class="d-flex justify-content-center mb-1">
+                            <button type="button" class="btn btn-outline-primary btn_border w-25 h-auto">Apply <img
+                                    src="./Assest/right-arrow.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center mt-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+    
+    </div>
+
+
+
+
+</body>
+
+</html>

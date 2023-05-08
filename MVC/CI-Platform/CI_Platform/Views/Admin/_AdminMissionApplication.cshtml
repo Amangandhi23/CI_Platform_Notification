@@ -1,0 +1,112 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model CI_Platform.Entities.ViewModel.Admintables
+
+
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <h3>Mission Application</h3>
+        @*<button type="button" class="btn orage_color text-center mb-2" style="border: 2px solid #F88634;color: #F88634;" data-bs-toggle="modal" data-bs-target="#AddTimebasedEdit">Add</button>*@
+    </div>
+
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-striped border DataTable" style="background-color: #f9f9f9;">
+            <thead style="background-color: #f9f9f9;">
+                <tr>
+                    <th scope="col">Mission Title</th>
+                    <th scope="col">Mission Id</th>
+                    <th scope="col">User Id</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Applied Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.missionApplications)
+                {
+                    <tr>
+                        @{
+                            var title = @Model.MissionList.FirstOrDefault(title => title.MissionId == @item.MissionId).Title;
+                            var MissionId = @Model.MissionList.FirstOrDefault(title => title.MissionId == @item.MissionId).MissionId;
+                            var UserId = @Model.UserList.FirstOrDefault(title => title.UserId == @item.UserId).UserId;
+                            var Username = @Model.UserList.FirstOrDefault(title => title.UserId == @item.UserId).FirstName + " " + @Model.UserList.FirstOrDefault(title => title.UserId == @item.UserId).LastName;
+                            var AppliedDate = @item.AppliedAt;
+
+                            <td>@title</td>
+                            <td>@MissionId</td>
+                            <td>@UserId</td>
+                            <td>@Username</td>
+                            <td>@AppliedDate</td>
+
+                            <td>
+
+                                @if (@item.ApprovalStatus == "PENDING")
+                                {
+                                    <button type="submit" class="MissionApplicationId" value="@item.MissionApplicationId" style="border:none;background:none;" onclick="statusbtn('APPROVE',@item.MissionApplicationId)">
+                                        <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                                    </button>
+
+                                    <button type="submit" class="MissionApplicationId" style="border:none;background:none;" onclick="statusbtn('DECLINE',@item.MissionApplicationId)" value="@item.MissionApplicationId">
+                                        <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                                    </button>
+                                }
+                                else if (@item.ApprovalStatus == "APPROVE")
+                                {
+                                    <button disabled
+                                    style="border:none;background:none;opacity:0.5;">
+                                        <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                                    </button>
+
+                                    <button type="submit" class="MissionApplicationId" style="border:none;background:none;" onclick="statusbtn('DECLINE',@item.MissionApplicationId)" value="@item.MissionApplicationId">
+                                        <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" style="border:none;background:none;" class="MissionApplicationId" onclick="statusbtn('APPROVE',@item.MissionApplicationId)" value="@item.MissionApplicationId">
+                                        <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                                    </button>
+
+                                    <button disabled
+                                    style="border:none;background:none;opacity:0.5;">
+                                        <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                                    </button>
+                                }
+
+                            </td>
+                        }
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('.DataTable').DataTable({
+                    info: false,
+                    lengthChange: false,
+                    dom: '<"float-start"f><"#DataTablesId"t>i<"#paginatorId"lp>',
+                    pageLength: 5,
+                    destroy: false,
+                    retrieve: true,
+                    paging: true,
+                    deferLoading: 57,
+                    searching:true,
+                    responsive:true,
+                    language: {
+                        searchPlaceholder: "Search records"
+                    },
+                });
+            });
+    </script>
+</div>
+    

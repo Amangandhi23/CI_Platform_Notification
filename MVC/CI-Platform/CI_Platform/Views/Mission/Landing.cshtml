@@ -1,0 +1,313 @@
+﻿@using CI_Platform.Entities.ViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Landing Page";
+    Layout = "_Layout_main_content";
+}
+
+@model CI_Platform.Entities.ViewModel.Mission_data;
+
+@*
+    @{
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+
+    if(ViewBag.Pager != null)
+    {
+    pager = ViewBag.Pager;
+    pageNo = pager.CurrentPage;
+    }
+
+    }*@
+
+<!-- 2) SERACH  ROW for small screen size-->
+
+
+<div class="w3-sidebar w3-bar-block  w3-animate-left" style="display:none" id="mySidebar">
+    <button class="w3-bar-item w3-button w3-large" onclick="w3_close()">Close &times;</button>
+    <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <span>Country</span>
+
+        </a>
+        <ul id="country_small" class="dropdown-menu text-small country_filter" aria-labelledby="dropdownUser1">
+            @if (Model.Country != null)
+            {
+                @foreach (var item in Model.Country)
+                {
+                    <li value="@item.CountryId @item.Name"><a class="dropdown-item" href="#">@item.Name</a></li>
+                }
+            }
+
+        </ul>
+    </div>
+    <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <span>City</span>
+
+        </a>
+        <ul id="cities_small" class="dropdown-menu text-small cities" aria-labelledby="dropdownUser1">
+            @*City *@
+        </ul>
+    </div>
+    <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <span>Theme</span>
+
+        </a>
+        <ul class="dropdown-menu text-small theme" id="theme_small" aria-labelledby="dropdownUser1">
+            @if (Model.MissionTheme != null)
+            {
+                @foreach (var item in Model.MissionTheme)
+                {
+                    @if (item.Status == 1 && item.DeletedAt == null)
+                    {
+                        <li class="d-flex flex-row ">
+                            <input class="mag_left_checkbox form-check-input clstheme" type="checkbox" value="@item.Title" id="flexCheckDefault">
+                            <label class="mag_left_checkbox form-check-label" for="flexCheckDefault">
+                                @item.Title
+                            </label>
+                        </li>
+                    }
+
+                    @*<li><a class="dropdown-item" href="#">@item.Title</a></li>*@
+                }
+            }
+        </ul>
+    </div>
+    <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+        <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            <span>Skills</span>
+
+        </a>
+        <ul class="dropdown-menu text-small skill" id="skill_small" aria-labelledby="dropdownUser1">
+            @if (Model.Skill != null)
+            {
+                @foreach (var item in Model.Skill)
+                {
+                    @if (item.Status == 1 && item.DeletedAt == null)
+                    {
+                        <li class="d-flex flex-row ">
+                            <input class="mag_left_checkbox form-check-input clsskill" type="checkbox" value="@item.SkillName" id="flexCheckDefault">
+                            <label class="mag_left_checkbox form-check-label" for="flexCheckDefault">
+                                @item.SkillName
+                            </label>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="d-block d-md-none">
+    <div class="w3-container d-flex justify-content-between">
+        <input type="search" class="form-control-plaintext " id="search_div_small" placeholder="Search mission...">
+        <img src="~/Assest/filter.png" class="w3-button w3-white w3-xxlarge" onclick="w3_open()" alt="">
+    </div>
+</div>
+
+<script>
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+    }
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+</script>
+
+
+
+
+<!-- 2) SERACH  ROW -->
+
+<div class="border-bottom d-none d-md-block ">
+    <div class="row row_one ab ml-2">
+
+        <div class="col-sm-auto col-1 mt-2 srch">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-search img_1" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+            </svg>
+        </div>
+        <div class="col-md-2 col-lg-4 col-xl-4 col-xxl-4 col-sm-3 col-11">
+            <input type="search" id="Srch_bar_js" class="form-control-plaintext" placeholder="Search mission...">
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span id="country_name">Country</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            </a>
+            <ul id="country" class="dropdown-menu text-small country_filter" aria-labelledby="dropdownUser1">
+                @if (Model.Country != null)
+                {
+                    @foreach (var item in Model.Country)
+                    {
+                        <li value="@item.CountryId @item.Name"><a class="dropdown-item" href="#">@item.Name</a></li>
+                    }
+                }
+
+            </ul>
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span>City</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            </a>
+            <ul id="cities" class="dropdown-menu text-small cities" aria-labelledby="dropdownUser1">
+                @if (Model.City != null)
+                {
+                    @foreach (var item in Model.City)
+                    {
+                        <li class="ms-2">
+                            <input type="checkbox" class="form-check-input me-3 clscity" id="exampleCheck1" value="@item.Name">
+                            <label class="form-check-label" for="exampleCheck1">@item.Name</label>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span>Theme</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            </a>
+            <ul class="dropdown-menu Theme_dropdown text-small theme" id="theme" aria-labelledby="dropdownUser1">
+                @if (Model.MissionTheme != null)
+                {
+                    @foreach (var item in Model.MissionTheme)
+                    {
+                        @if (item.Status == 1 && item.DeletedAt == null)
+                        {
+                            <li class="d-flex flex-row">
+                                <input class="mag_left_checkbox form-check-input clstheme" type="checkbox" value="@item.Title" id="flexCheckDefault">
+                                <label class="mag_left_checkbox form-check-label" for="flexCheckDefault">
+                                    @item.Title
+                                </label>
+                            </li>
+                        }
+
+
+                    }
+                }
+            </ul>
+        </div>
+        <div class="dropdown col-sm-auto col-6 mt-2 border_1">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span>Skills</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            </a>
+            <ul class="dropdown-menu text-small skill" id="skill" aria-labelledby="dropdownUser1">
+                @if (Model.Skill != null)
+                {
+                    @foreach (var item in Model.Skill)
+                    {
+                        @if (item.Status == 1 && item.DeletedAt == null)
+                        {
+                            <li class="d-flex flex-row ">
+                                <input class="mag_left_checkbox form-check-input clsskill" type="checkbox" value="@item.SkillName" id="flexCheckDefault">
+                                <label class="mag_left_checkbox form-check-label" for="flexCheckDefault">
+                                    @item.SkillName
+                                </label>
+                            </li>
+                        }
+
+
+                    }
+                }
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+<button type="button" class="btn" style="display:none;" id="filter_btn">
+</button>
+
+<!-- 3) third row -->
+
+<div class="container p-2 s1">
+    <div class=" px-1">
+        <div id="clear-item">
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- 4)main content -->
+<div class="container p-3" id="mission_data_upper_row">
+    <div class="row d-flex justify-content-between">
+        <div class="col-auto  mb-2" id="count_mission">
+            <span>Explore<strong id="countm"> </strong></span>
+        </div>
+        <div class="col-auto d-flex">
+            <div class="dropdown">
+                <button class="btn  dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort By
+                </button>
+                <ul class="dropdown-menu" id="SortBy" aria-labelledby="dropdownMenuLink">
+                    <li><button class="dropdown-item sortByInput" value="Default">Default</button></li>
+                    <li id="Date"><button class="dropdown-item sortByInput" value="Oldest">Oldest</button></li>
+                    <li><button class="dropdown-item sortByInput" value="Newest">Newest</button></li>
+                    <li><button class="dropdown-item sortByInput" value="Mission Type">Mission Type</button></li>
+                    <li><button class="dropdown-item sortByInput" value="My favourites">My favourites</button></li>
+                    <li><button class="dropdown-item sortByInput" value="Highest available seats">Highest available seats</button></li>
+                    <li><button class="dropdown-item sortByInput" value="Lowest available seats">Lowest available seats</button></li>
+                    <li><button class="dropdown-item sortByInput" value="Deadline">Deadline</button></li>
+                </ul>
+            </div>
+            <div class="d-none d-md-block">
+                <img src="~/Assest/grid.png" id="gbtn" type="button" class="btn btn_1" onclick="Grid_View()" alt="">
+                <img src="~/Assest/list.png" type="button" class="btn btn_1" onclick="List_View()" alt="">
+                <img src="~/Assest/list.png" type="button" class="btn btn_1 hide" onclick="NoFound_View()" id="nom" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="pid">
+    <partial name="_Missions" />
+</div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>

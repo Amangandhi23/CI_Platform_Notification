@@ -1,0 +1,613 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CI_Platform.Entities.ViewModel.Admintables
+
+
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <h3>Mission Data</h3>
+    </div>
+
+    <hr>
+    <div class="col-12 col-lg-6">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Title</label>
+            <input value="@Model.Title" type="text" class="form-control Mission_title" placeholder="Enter Your Title" oninput="HideErrorMessage('tspan')" />
+            <input hidden value="@Model.MissionId" type="text" class="form-control abmission MissionId" />
+            <span class="text-danger hide" id="tspan" style="display:none;">Title is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">ShortDescription</label>
+            <input value="@Model.ShortDescription" type="text" class="form-control Mission_shortdesc" placeholder="Enter ShortDescription" oninput="HideErrorMessage('sdspan')">
+            <span class="text-danger hide" id="sdspan" style="display:none;">ShortDescription is required</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Description</label>
+            <textarea asp-for="@Model.Description" value="@Model.Description" id="Mission_desc" class="ckeditor form-control " oninput="HideErrorMessage('dspan')"></textarea>
+            <span class="text-danger hide" id="dspan" style="display:none;">Description is required</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">Organization Name</label>
+            <input value="@Model.OrganizationName" type="text" class="form-control Mission_orgname" placeholder="Enter Organization Name" oninput="HideErrorMessage('onspan')" />
+            <span class="text-danger hide" id="onspan" style="display:none;">Organization Name is required</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-12">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">OrganizationDetail</label>
+            <textarea asp-for="@Model.OrganizationDetail" value="@Model.OrganizationDetail" id="content" class="ckeditor form-control  Mission_orgdetail" oninput="HideErrorMessage('odspan')"></textarea>
+            <span class="text-danger hide" id="odspan" style="display:none;">Organization Detail is required</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-6">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">StartDate</label>
+            <input asp-for="@Model.StartDate" type="date" class="form-control Mission_startdate" oninput="HideErrorMessage('startdspan')" />
+            <span class="text-danger hide" id="startdspan" style="display:none;">Start Date is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">EndDate</label>
+            <input asp-for="@Model.EndDate" type="date" class="form-control Mission_enddate" oninput="HideErrorMessage('enddspan')">
+            <span class="text-danger hide" id="enddspan" style="display:none;">End Date is required</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label x">MissionType</label>
+            <select value="@Model.MissionType" asp-for="@Model.MissionType" onchange="Divhide(this.options[this.selectedIndex].value)" class="form-select mt-1 mb-3 Mission_type" aria-label="Default select example">
+                <option value="TIME" selected>Time</option>
+                <option value="GO">Goal</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 timebaseddiv">
+        <div clas-moz-animation-delay
+             leftl for="recipi!importantmportantnt-name" class="col-form-label ">
+            Total Sheets</label>
+            <input asp-for="@Model.TotalSheet" type="text" class="form-control Mission_sheets" placeholder="Enter Total Sheets" oninput="HideErrorMessage('sheetspan')">
+            <span class="text-danger hide" id="sheetspan" style="display:none;">Sheets is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 timebaseddiv">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">Dead line</label>
+            <input asp-for="@Model.deadLine" type="date" class="form-control Mission_deadline " oninput="HideErrorMessage('deadspan')">
+            <span class="text-danger hide" id="deadspan" style="display:none;">Deadline is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 goalbaseddiv" style="display:none;">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">Goal Action</label>
+            <input asp-for="@Model.GoalValue" type="number" class="form-control Mission_action" oninput="HideErrorMessage('actionspan')">
+            <span class="text-danger hide" id="actionspan" style="display:none;">Goal Value is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4 goalbaseddiv" style="display:none;">
+        <div class="mb-3">
+            <label for="recipient-name" class="col-form-label ">Goal Text</label>
+            <input type="text" asp-for="@Model.GoalObjectiveText" class="form-control Mission_goaltext" placeholder="Enter Goal Text" oninput="HideErrorMessage('goaltextspan')">
+            <span class="text-danger hide" id="goaltextspan" style="display:none;">Goal Text is required</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label>Availability</label>
+            <select asp-for="@Model.Availability" class="form-select mt-1 mb-3 Mission_availability" aria-label="Default select example" oninput="HideErrorMessage('avspan')">
+                <option value="-1" selected>Select Availability</option>
+                <option value="DAILY">Daily</option>
+                <option value="WEEKLY">Weekly</option>
+                <option value="WEEKEND">Weekend</option>
+                <option value="MONTHLY">Monthly</option>
+            </select>
+            <span class="text-danger hide" id="avspan" style="display:none;">Availability is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label>Status</label>
+            <select asp-for="@Model.Status" class="form-select mt-1 mb-3 Mission_status" aria-label="Default select example">
+                <option value="0" selected>InActive</option>
+                <option value="1">Active</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label>Theme</label>
+            <select asp-for="@Model.ThemeId" id="ThemeList" class="form-select mt-1 mb-3 Mission_theme ThemeList " name="ThemeList" aria-label="Default select example" oninput="HideErrorMessage('themespan')">
+                <option value="-1" selected>Select Availability</option>
+                @foreach (var themes in Model.MissionThemeList)
+                {
+                    <option class="" value="@themes.MissionThemeId">@themes.Title</option>
+                }
+            </select>
+            <span class="text-danger hide" id="themespan" style="display:none;">Theme is required</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label for="CountryList">Country</label>
+            <select id="CountrySelect" asp-for="@Model.CountryId" value="@Model.CountryId" onchange="CountrySelected(this.options[this.selectedIndex].value)" oninput="HideErrorMessage('countryspan')" class="form-select mt-1 mb-3 Mission_country" name="CountryList" aria-label="Default select example">
+                <option value="-1" selected>Select The Country</option>
+                @foreach (var countries in Model.CountriesList)
+                {
+                    <option value="@countries.CountryId">@countries.Name</option>
+                }
+            </select>
+            <span class="text-danger hide" id="countryspan" style="display:none;">County is required</span>
+        </div>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label for="CityList">City</label>
+            <select asp-for="@Model.CityID" value="@Model.CityID" id="CityList" class="form-select mt-1 mb-3 Mission_city  " name="CityList" aria-label="Default select example">
+                <option value="-1" selected>Selcte the City</option>
+                @foreach (var cities in Model.CityList)
+                {
+                    <option class="CitySelect" value="@cities.CityId">@cities.Name</option>
+                }
+            </select>
+            <span class="text-danger hide" id="cityspan" style="display:none;">City is required</span>
+
+        </div>
+    </div>
+    @*<div class="col-12 col-lg-4">
+        <div class="mb-3">
+        <label>SKills</label>
+        <select asp-for="@Model.SkillId" id="skill" class="form-select mt-1 mb-3  Mission_skill" multiple aria-label="Default select example">
+        <option value="-1" selected>Select Skill</option>
+        @foreach (var item in Model.SkillList)
+        {
+        <option class="" value="@item.SkillId">@item.SkillName</option>
+        }
+        </select>
+        </div>
+        </div>*@
+    <div class="col-12 col-lg-4">
+        <div class="mb-3">
+            <label>Skill</label>
+            <div class="dropdown form-select mt-1 mb-3">
+                <a href="#" class="d-block for_padding_dropdown link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>select skills</span>
+                </a>
+                <ul class="dropdown-menu text-small Mission_skill skill" id="skill" style="max-height:100px;overflow-y:scroll; width:100%;" onchange="Demofunction()" aria-labelledby="dropdownUser1">
+                    @if (Model.SkillList != null)
+                    {
+                        @foreach (var item in Model.SkillList)
+                        {
+                            <li class="d-flex flex-row ">
+                                <input class="mag_left_checkbox form-check-input classofskill" type="checkbox" value="@item.SkillId" id="@item.SkillId">
+                                <label class="mag_left_checkbox form-check-label" for="flexCheckDefault">
+                                    @item.SkillName
+                                </label>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <label for="files" class="form-label">Upload your photos</label>
+        <div class="card drag-card" style="border: none;">
+            <div class="drag-area">
+                <span class="visible">
+                    <span class="select" role="button"><img src="~/Assest/drag-and-drop.png"></span>
+                </span>
+                <span class="on-drop">Drop images here</span>
+                <input name="files" type="file" class="file" id="file" multiple />
+
+            </div>
+
+            <div class="container-img mt-3" id="imgadd">
+            </div>
+            <div class="container-img mt-3" id="PreviewImages">
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+
+        <label for="formFileMultiple" class="form-label">Upload Documents</label>
+        <input class="form-control" onchange="displayDocuments()" type="file" name="documents" id="document" multiple>
+        <div id="documents-container" class="d-flex mt-3">
+            @if (Model.MissionId != 0)
+            {
+                var documents = Model.MissionDocumentList.Where(mediatype => mediatype.MissionId == Model.MissionId);
+                if (documents.Count() > 0)
+                {
+                    int i = 0;
+                    foreach (var item in documents)
+                    {
+                        <div class="doc">
+                            <a target="_blank" href="@item.DocumentPath" class="docpill mx-1 oldDocs">@item.DocumentName</a>
+                            <button class="mx-2 pillbtn" type="button" onclick="delDocument(@i)">X</button>
+                        </div>
+                        i++;
+                    }    
+                }
+                
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+
+        <label class="form-label">Enter video url</label>
+        <textarea type="text" name="url" class="form-control videourl" id="utubeurl" aria-describedby="emailHelp"
+                  placeholder="Enter your url">
+            @{
+                if (@Model.MissionMediumList != null)
+                {
+                    var url = @Model.MissionMediumList.Where(mediatype => mediatype.MediaType == "URL");
+                    var Count = @Model.MissionMediumList.Where(mediatype => mediatype.MediaType == "URL").Count();
+                    int i = 1;
+                    foreach (var item in url)
+                    {
+
+                        if (i < 3)
+                        {
+                            @item.MediaPath @:    
+                        }
+                        else
+                        {
+                            @item.MediaPath     
+                        }
+                        i++;
+
+
+                    }
+                }
+
+            }
+              </textarea>
+
+    </div>
+</div>
+
+<div class="text-end mt-4 mb-3">
+    <button type="button" id="CancelCMSAddEdit" class="btn border-secondary px-3 py-1 text-secondary text-center rounded-pill bg-white" onclick="ReturnMissionPage()">Cancel</button>
+    <button type="button" class="btn px-3 text-success py-1 border-success text-center rounded-pill bg-white" onclick="AddMissionData()">Save</button>
+</div>
+
+
+<script>
+    
+        function displayDocuments() {
+    let file = event.target.files;
+
+    // if user select no Document
+    if (file.length == 0) return;
+
+    for (let i = 0; i < file.length; i++) {
+    if (file[i].type.split("/")[1] == "doc" || file[i].type.split("/")[1] == "docx" || file[i].type.split("/")[1] == "pdf" || file[i].type.split("/")[1] == "xlsx" || file[i].type.split("/")[0] == "application") {
+    if (!documentfiles.some((e) => e.name == file[i].name))
+    documentfiles.push(file[i]);
+    }
+    else {
+    continue;
+    }
+    }
+
+    showDocuments();
+    showMissionDocumentcount();
+    };
+    / SHOW documents /
+    function showDocuments() {
+    let containerDoc = document.getElementById("documents-container");
+    containerDoc.innerHTML = documentfiles.reduce((prev, curr, index) => {
+    return `${prev}
+    <div class="image">
+    <a target = "_blank" href = "${URL.createObjectURL(curr)}" class="docpill mx-1 oldDocs" > ${curr.name}</a >
+    <button class="mx-2 pillbtn" type="button" onclick="delDocument(${index})">X</button>
+    </div>`;
+
+
+
+    }, "");
+    for (let i = 0; i < documentfiles.length; i++) {
+    console.log(documentfiles[i].name);
+    }
+    }
+
+    function showMissionDocumentcount() {
+    let doc = document.getElementById('document');
+    const dt = new DataTransfer();
+    for (let i = 0; i < documentfiles.length; i++) {
+    dt.items.add(documentfiles[i]);
+    }
+
+    doc.files = dt.files;
+    }
+
+    / DELETE Documents /
+    function delDocument(index) {
+    documentfiles.splice(index, 1);
+    showDocuments();
+    showMissionDocumentcount();
+    }
+
+</script>
+
+
+
+<script>
+
+            var Imagesave = [];
+
+    function delImageSelect(id) {
+        var valueToDelete = id;
+        var index = Imagesave.indexOf(valueToDelete);
+        if (index > -1) {
+          console.log("before"+Imagesave);
+            Imagesave.splice(index, 1);
+          console.log("After"+Imagesave);
+        }
+
+        console.log("Deleting image with id: ", id);
+        var element = $('.imageDraft[data-id="' + id + '"]');
+        console.log("Element found: ", element.length > 0);
+        element.css('display', 'none');
+    }
+
+        $(document).ready(function(){
+            var MissionId = $('.MissionId').val();
+
+
+            if(MissionId != 0){
+                $(".Mission_type").css('pointer-events', 'none');
+                $(".Mission_type").css('background-color', '#e9ecef');
+
+                //For Images
+                $.ajax({
+                    url: '/Admin/ImageAndDocumentGet',
+                    type: 'POST',
+                    data: {MissionId : MissionId},
+                    success: function (data) {
+                        var items = "";
+                        for (var i = 0; i < data[0].length; i++) {
+                            var url = "https://localhost:7023" + data[0][i];
+                            var newUrl = new URL(url);
+                            // Extract the pathname
+                            var pathname = newUrl.pathname;
+
+                               items += `<div class="imageDraft" data-id="${pathname}">
+                <span class="CloseSpan" onclick="delImageSelect('${pathname}')">&times;</span>
+                <img class="ImgDraft" src="${pathname}" />
+              </div>`
+                            Imagesave.push(data[0][i]);
+                        }
+                        $('#PreviewImages').html(items);
+
+                    }
+                });
+            }
+
+        });
+
+
+        $(document).ready(function(){
+            var MissionId = $('.MissionId').val();
+            if(MissionId !== 0){
+                $.ajax({
+                    url: '/Admin/GetMissionSkillForAddEditMissionPage',
+                    type: 'POST',
+                    data: {MissionId : MissionId},
+                    success: function (data) {
+
+                        $('.classofskill').each(function() {
+                            for(let i=0;i<data.length;i++){
+
+                                console.log(data[i]);
+                                console.log($(this).attr('value'));
+
+                                if(data[i] == $(this).attr('value') ){
+                                    document.getElementById(data[i]).checked = true;
+                                    Skillarr.push(data[i]);
+                                    console.log('Checkbox ' + data[i] + ' is checked:', document.getElementById(data[i]).checked);
+
+                                }
+                                //else{
+                                  //  document.getElementById(data[i]).checked = false;
+                                    //console.log('Checkbox ' + data[i] + ' is checked:', document.getElementById(data[i]).checked);
+
+                                //}
+                            }
+
+
+                        });
+                            Skillarr = [...new Set(Skillarr)];
+
+                    }
+                });
+            }
+
+        });
+
+
+
+
+</script>
+
+<script>
+
+
+
+     files = [],
+        dragArea = document.querySelector('.drag-area'),
+        input = document.querySelector('.drag-area input'),
+        button = document.querySelector('.drag-card button'),
+        select = document.querySelector('.drag-area .select'),
+        container = document.querySelector('.container-img');
+
+    / CLICK LISTENER /
+    select.addEventListener('click', () => input.click());
+
+    / INPUT CHANGE EVENT /
+    input.addEventListener('change', () => {
+        let file = input.files;
+
+        // if user select no image
+        if (file.length == 0) return;
+
+        for (let i = 0; i < file.length; i++) {
+            if (file[i].type.split("/")[0] != 'image') continue;
+            if (!files.some(e => e.name == file[i].name)) files.push(file[i])
+        }
+
+        showImages();
+        textareaval();
+    });
+
+    / SHOW IMAGES /
+    function showImages() {
+        container.innerHTML = files.reduce((prev, curr, index) => {
+            return `${prev}
+    <div class="image">
+    <span onclick="delImage(${index})">&times;</span>
+    <img src="${URL.createObjectURL(curr)}" />
+    </div>`
+        }, '');
+        for (let i = 0; i < files.length; i++) {
+            console.log(files[i].name)
+        }
+    }
+
+    / DELETE IMAGE /
+    function delImage(index) {
+        files.splice(index, 1);
+        showImages();
+        textareaval();
+    }
+
+    / DRAG & DROP /
+    dragArea.addEventListener('dragover', e => {
+        e.preventDefault()
+        dragArea.classList.add('dragover')
+    })
+
+    /* DRAG LEAVE */
+    dragArea.addEventListener('dragleave', e => {
+        e.preventDefault()
+        dragArea.classList.remove('dragover')
+    });
+
+    / DROP EVENT /
+    dragArea.addEventListener('drop', e => {
+        e.preventDefault()
+        dragArea.classList.remove('dragover');
+
+        let file = e.dataTransfer.files;
+        input.files = e.dataTransfer.files;
+        for (let i = 0; i < file.length; i++) {
+            / Check selected file is image /
+            if (file[i].type.split("/")[0] != 'image') continue;
+
+            if (!files.some(e => e.name == file[i].name)) files.push(file[i])
+        }
+        showImages();
+        textareaval();
+    });
+
+    function textareaval() {
+
+        const dt = new DataTransfer();
+        for (let i = 0; i < files.length; i++) {
+            dt.items.add(files[i]);
+        }
+
+        input.files = dt.files;
+
+
+    }
+</script>
+
+
+
+<script>
+
+    //function delImageSelect1(id) {
+    //    var valueToDelete = id;
+    //    var index = DocArray.indexOf(valueToDelete);
+    //    if (index > -1) {
+    //      console.log("before"+DocArray);
+    //        DocArray.splice(index, 1);
+    //      console.log("After"+DocArray);
+    //    }
+
+    //    console.log("Deleting image with id: ", id);
+    //    var element = $('.imageDraft[data-id="' + id + '"]');
+    //    console.log("Element found: ", element.length > 0);
+    //    element.css('display', 'none');
+    //}
+
+
+    //   var DocArray =[];
+
+    //  // Get the file input element
+    //  const fileInput = document.getElementById('doc');
+
+    //  // Get the documents container element
+    //  const documentsContainer = document.getElementById('documents-container');
+
+    //  // Add an event listener for when files are selected
+    //  fileInput.addEventListener('change', (event) => {
+    //  // Get the selected files
+    //  const files = event.target.files;
+
+    //  var items ="";
+    //  // Loop through the files and create a label for each one
+    //  for (let i = 0; i < files.length; i++) {
+    //    const file = files[i];
+
+
+
+    //     items += `<div class="imageDraft" data-id="${file.name}">
+    //            <span class="CloseSpan" onclick="delImageSelect1('${file.name}')">&times;</span>
+    //            <span class="ImgDraft">` + file.name + `</span>
+    //          </div>`
+    //    DocArray.push(file.name);
+    //  }
+    //  $('#documents-container').html(items);
+    //});
+
+</script>
+<script src="~/js/ckeditor/ckeditor.js" asp-append-version="true"></script>

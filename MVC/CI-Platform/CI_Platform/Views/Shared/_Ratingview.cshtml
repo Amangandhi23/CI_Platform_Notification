@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CI_Platform.Entities.ViewModel.Mission_data
+@{
+    //var count = Model.MissionRating.First(m => m.MissionId == Model.mission_vol.MissionId && m.UserId == @Model.user.UserId).Rating;
+    var count = @Model.RatingCount;
+
+    for(int i=1; i <= 5;i++)
+    {
+        if(i <= count)
+        {
+            
+            <img src="~/Assest/selected-star.png"  onclick="ratingfunction()" value="@i @Model.mission_vol.MissionId @Model.user.UserId" alt="">
+        }
+        else
+        {
+            <img src="~/Assest/star-empty.png"  onclick="ratingfunction()" width="26" height="25" value="@i @Model.mission_vol.MissionId @Model.user.UserId" alt="">
+        }
+
+    }
+}
+
+
+

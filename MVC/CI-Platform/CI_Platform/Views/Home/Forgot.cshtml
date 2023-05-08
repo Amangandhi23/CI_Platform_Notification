@@ -1,0 +1,49 @@
+﻿@using CI_Platform.Entities.ViewModel
+@model Login;
+@{
+    ViewData["Title"] = "Forgot Page";
+    Layout = "_Layout";
+}
+
+            <div class="col-xl-4 col-md-4 col-12 align-items-center d-flex flex-colum mt-4 flex-sm-row justify-content-center">
+                <form class="col-xl-10 mx-4 mt-4 sm-3 f_md align-items-center" method="post" asp-controller="Home" asp-action="Forgot">
+                    <div class="mb-5 content_form">
+                        <div class="forget">
+                            <h6 class="text-center">Forgot Password</h6>
+
+
+                            <p class="text-center">Enter your email address you've using for your account below, and
+                                we
+                                will send you a password reset link</p>
+
+                            <div class="mb-3">
+                                <label asp-for="Email">Email Address</label>
+                                <input type="email" asp-for="Email" class="form-control" id="email"
+                                    placeholder="Enter Your Email Address..." name="email">
+                                <span asp-validation-for="Email" class="text-danger" ></span>
+                            </div>
+                            <div class="mb-2">
+                               @* <a type="submit" class="btn btn-outline-primary btn_border w-100 h-auto">
+                                        Reset My Password
+                                </a>*@
+                                <button type="submit" class="btn btn-outline-primary btn_border w-100 h-auto">Reset My Password</button>
+                                <br>
+                            </div>
+                            <div class="text-center mb-5">
+                                <span class="align-items-center mb-3"><a href="./Index">Login</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center ">
+                        <span md-xl-5><a href="#">privacy Policy</a></span>
+                    </div>
+
+
+                </form>
+            </div>
+ 
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

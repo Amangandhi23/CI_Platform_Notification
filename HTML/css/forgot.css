@@ -1,0 +1,35 @@
+.btn_border{
+    width: 100%;
+    height: 48px;
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    color: #F88634;
+}
+
+.form-control{
+    width: 100%;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 10px #2B64B11F;
+}
+
+.forget{
+    margin-bottom: 50%;
+}
+
+
+.content_form{
+    width: 100%;
+}
+
+@media (max-width:767px) {
+    .img1 {
+        max-height:100vh;
+    }
+}
+
+@media (min-width:768px) {
+    .img1 {
+        height: 100vh;
+    }
+}

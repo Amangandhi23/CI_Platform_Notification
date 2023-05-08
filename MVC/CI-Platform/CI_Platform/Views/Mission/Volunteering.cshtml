@@ -1,0 +1,1147 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Volentiaring Page";
+    Layout = "";
+}
+@model CI_Platform.Entities.ViewModel.Mission_data;
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site2.css">
+    <link rel="stylesheet" href="httpsrgb()n.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    
+</head>
+
+<body>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+
+
+    <partial name="_Notification" />
+
+
+
+    <!-- 1) HEADER -->
+
+
+    <nav class="navbar navbar-expand-md navbar-light border-bottom">
+        <div class="container">
+            <div class="d-flex d-block d-md-none justify-content-between">
+                <div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon "></span>
+                    </button>
+                </div>
+                <div>
+                    <img src="@Model.user.Avatar" alt="mdo" width="40" height="40"
+                         class="rounded-circle img12">
+                </div>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active link-dark" aria-current="page" asp-controller="Story" asp-action="Story">Stories</a>
+                    </li>
+                    <li class="nav-item dropdown ml-1">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy
+                        </a>
+                        <ul class="dropdown-menu" id="Policypages" aria-labelledby="navbarDropdown">
+                            
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            @{
+                                <img src="@Model.user.Avatar" alt="mdo" width="40" height="40"
+                                     class="rounded-circle profile_pic">
+                                <span>@Model.user.FirstName @Model.user.LastName</span>
+                            }
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="UserProfile">Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="VolunteeringTimeSheet">Volunteering TimeSheet</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-xl-6 d-flex flex-column">
+
+                <!-- Full-width images with number text -->
+                @{
+                    foreach (var item in Model.missionMedia.Where(id => id.MissionId == @Model.mission_vol.MissionId))
+                    {
+                        if (item.MediaType == "PNG")
+                        {
+                            <div class="mySlides h-100 d-none">
+                                <img src="@item.MediaPath" class="mission-img">
+                            </div>
+                        }
+                        else
+                        {
+                            string videostring = @item.MediaPath.Replace("watch?v=", "embed/");
+                            int GetURLlength = videostring.Length;
+
+                            string pathcheck = videostring.Substring(13, 1);
+                            if (pathcheck == ".")
+                            {
+                                string GetURLValue = videostring.Substring(17);
+                                string YoutubeURL = "https://www.youtube.com/embed/" + GetURLValue + "?rel=0";
+                                <div class="mySlides d-none" style="height:445px">
+                                    <iframe class="mission-img" src="@YoutubeURL" allowfullscreen>
+                                    </iframe>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="mySlides d-none" style="height:445px">
+                                    <iframe class="mission-img" src="@item.MediaPath.Replace("watch?v=", "embed/")" allowfullscreen>
+                                    </iframe>
+                                </div>
+                            }
+                        }
+                    }
+                }
+
+
+                <!-- Thumbnail images -->
+                <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        @{
+                            int mediacount = 1;
+                        }
+                        @foreach (var item in Model.missionMedia.Where(id => id.MissionId == @Model.mission_vol.MissionId))
+                        {
+                            if (mediacount == 1)
+                            {
+                                if (item.MediaType == "PNG")
+                                {
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3">
+                                            <div class="card">
+                                                <div class="card-img">
+                                                    <img src="@item.MediaPath"
+                                             class="img-fluid cursor demo" onclick="currentSlide(@mediacount)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item active">
+                                        <div class="col-md-3">
+                                            <div class="card">
+                                                <div class="card-img" style="position:relative;float:left;">
+                                                    @{
+                                                        string videostring = @item.MediaPath.Replace("watch?v=", "embed/");
+                                                        int GetURLlength = videostring.Length;
+
+                                                        string pathcheck = videostring.Substring(13, 1);
+                                                        if (pathcheck == ".")
+                                                        {
+                                                            string GetURLValue = videostring.Substring(17);
+                                                            string YoutubeURL = "https://www.youtube.com/embed/" + GetURLValue + "?rel=0";
+                                                            <iframe class="img-fluid demo" src="@YoutubeURL"></iframe>
+                                                            <div class="overlay d-md-block d-none" style="top:0;left:0;width:100%;height:100%;position:absolute;" onclick="currentSlide(@mediacount)"></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <iframe class="img-fluid demo" src="@item.MediaPath.Replace("watch?v=", "embed/")"></iframe>
+                                                            <div class="overlay d-md-block d-none" style="top:0;left:0;width:100%;height:100%;position:absolute;" onclick="currentSlide(@mediacount)"></div>
+                                                        }
+                                                    }
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (item.MediaType == "PNG")
+                                {
+                                    <div class="carousel-item">
+                                        <div class="col-md-3">
+                                            <div class="card">
+                                                <div class="card-img">
+                                                    <img src="@item.MediaPath" class="img-fluid cursor demo"
+                                             onclick="currentSlide(@mediacount)">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <div class="col-md-3">
+                                            <div class="card">
+                                                <div class="card-img" style="position:relative;float:left;">
+                                                    @{
+                                                        string videostring = @item.MediaPath.Replace("watch?v=", "embed/");
+                                                        int GetURLlength = videostring.Length;
+
+                                                        string pathcheck = videostring.Substring(13, 1);
+                                                        if (pathcheck == ".")
+                                                        {
+                                                            string GetURLValue = videostring.Substring(17);
+                                                            string YoutubeURL = "https://www.youtube.com/embed/" + GetURLValue + "?rel=0";
+                                                            <iframe class="img-fluid demo" src="@YoutubeURL"></iframe>
+                                                            <div class="overlay d-md-block d-none" style="top:0;left:0;width:100%;height:100%;position:absolute;" onclick="currentSlide(@mediacount)"></div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <iframe class="img-fluid demo" src="@item.MediaPath.Replace("watch?v=", "embed/")"></iframe>
+                                                            <div class="overlay d-md-block d-none" style="top:0;left:0;width:100%;height:100%;position:absolute;" onclick="currentSlide(@mediacount)"></div>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            mediacount++;
+                        }
+
+                    </div>
+                    <a class="carousel-control-prev bg-transperent w-auto" href="#recipeCarousel" role="button"
+                       data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next bg-transperent w-auto" href="#recipeCarousel" role="button"
+                       data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+
+
+
+            <!-- for img js code -->
+            <script>
+
+                let slideIndex = 1;
+                showSlides(slideIndex);
+
+                // Thumbnail image controls
+                function currentSlide(n) {
+                    showSlides(slideIndex = n);
+                }
+
+                function showSlides(n) {
+                    let slides = document.getElementsByClassName("mySlides");
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].classList.replace("d-sm-block", "d-none");
+                    }
+                    slides[slideIndex - 1].classList.add("d-sm-block");
+                    console.log(slideIndex);
+                }
+
+                let items = document.querySelectorAll(".carousel .carousel-item");
+
+                items.forEach((el) => {
+                    const minPerSlide = 4;
+                    let next = el.nextElementSibling;
+                    for (var i = 1; i < minPerSlide; i++) {
+                        if (!next) {
+                            // wrap carousel by using first child
+                            next = items[0];
+                        }
+                        let cloneChild = next.cloneNode(true);
+                        el.appendChild(cloneChild.children[0]);
+                        next = next.nextElementSibling;
+                    }
+                });
+            </script>
+
+
+
+
+
+
+
+            <!--I-ms-perspective-ori-ms-perspective-origin-yde content  -->
+
+            <div class="col-12 col-xl-6 mt-3 ml-2 mt-3">
+                <h1 class="text-light-black mb-1">@Model.mission_vol.Title</h1>
+                <div class="border-bottom pb-1" style="z-index: 1;">
+                    <p>@Html.Raw(Model.mission_vol.Description)</p>
+                </div>
+                <div class=" d-flex justify-content-center mb-1" style="z-index: 2; margin-top: -12px;">
+                    <div style="background-color: white;">
+                        @if(@Model.mission_vol.MissionType == "TIME")
+                        {
+                            <span class="border date_1">From @Model.mission_vol.StartDate.Value.ToShortDateString() until @Model.mission_vol.EndDate.Value.ToShortDateString() </span>
+                        }
+                        else
+                        {
+                            var Goaltextdata = @Model.goalMissions.FirstOrDefault(mission => mission.MissionId == @Model.mission_vol.MissionId);
+                            if(Goaltextdata != null)
+                            {
+                               <span class="border date_1">@Goaltextdata.GoalObjectiveText</span>        
+                            }
+                        }
+                        
+                    </div>
+
+                </div>
+
+                <div class="d-flex flex-row justify-content-between mb-3 border-bottom">
+                    <div class="d-flex flex-row">
+                        <div class="">
+                            <img src="~/Assest/Seats-left.png" alt="">
+                        </div>
+                        <div class="d-flex mr_1 flex-column">
+                            @{
+                                var sheetsforthismission  = @Model.mission_vol.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @Model.mission_vol.MissionId).Count();
+                                <span>@sheetsforthismission</span>
+                            }
+                            <span>Seats-left</span>
+                        </div>
+                    </div>
+                    @if (Model.mission_vol.MissionType == "TIME")
+                    {
+                        <div class="d-flex">
+                            <div class="">
+                                <img src="~/Assest/deadline.png" class="" alt="">
+                            </div>
+                            <div class="d-flex flex-column mr_1">
+                                <div class="deadlinefont">09/01/2023</div>
+                                <span class="deadline">Deadline</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex">
+                            <div class="">
+                                <img src="~/Assest/achieved.png" class="" alt="">
+                            </div>
+                            <div class="d-flex flex-column mr_1">
+
+
+                                @{
+                                    var maxvalue = @Model.goalMissions.FirstOrDefault(m => m.MissionId == @Model.mission_vol.MissionId).GoalValue;
+                                    var sumofactionvalues = @Model.timesheetdata.Where(m => m.MissionId == @Model.mission_vol.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                    var currentvalue = maxvalue - sumofactionvalues;
+                                    <div class="deadlinefont"><progress max="@maxvalue" value="@sumofactionvalues"></progress></div>
+                                    <span class="deadline">@sumofactionvalues achieved</span>
+
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="border-bottom" style="z-index: 1;">
+                    <div class="d-flex col-6  pb-4">
+                        <div class="col-7 justify-content-end w-100 pl-2">
+
+                            @{
+                                var FavMission_Count = Model.mission_vol.FavoriteMissions.Where(m => m.UserId == Model.user.UserId).Count();
+                                if (FavMission_Count > 0)
+                                {
+                                    <button type="button" class="btn btn-outline-denger btn_border_1 h-auto AddFavButton " value="@Model.mission_vol.MissionId @Model.user.UserId">
+                                        <img src="~/Assest/heart4.png" style="pointer-events:none; width: 25px; border-radius: 100%; height: auto;" alt="right-arrow">
+                                        Add to Favourite
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-primary btn_border_1 h-auto AddFavButton" value="@Model.mission_vol.MissionId @Model.user.UserId">
+                                        <img src="~/Assest/heart1.png" style="pointer-events:none;" alt="right-arrow">
+                                        Add to Favourite
+                                    </button>
+                                }
+                            }
+
+                        </div>
+                        <div class="col-auto justify-content-start w-100">
+                            <button type="button" class="btn btn-outline-primary btn_border_1  h-auto" data-bs-toggle="modal" data-bs-target="#recommended">
+                                <img src="~/Assest/add1.png" class=" " alt="right-arrow">
+                                Recommend to a Co-Worker
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-center mb-4" style="z-index: 2; margin-top: -15px;">
+                    @{
+                        var checkforratinguservalidation = @Model.MissionApplication.FirstOrDefault(id => id.UserId == Model.user.UserId && id.MissionId == Model.mission_vol.MissionId && id.ApprovalStatus != "DECLINE" && id.ApprovalStatus != "PENDING");
+                        if (checkforratinguservalidation != null)
+                        {
+                            <div style="background-color: white" id="For_rating">
+                                <partial name="_Ratingview" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="background-color: white">
+                                <img src="~/Assest/star-empty.png" width="26" height="25" alt="">
+                                <img src="~/Assest/star-empty.png" width="26" height="25" alt="">
+                                <img src="~/Assest/star-empty.png" width="26" height="25" alt="">
+                                <img src="~/Assest/star-empty.png" width="26" height="25" alt="">
+                                <img src="~/Assest/star-empty.png" width="26" height="25" alt="">
+                            </div>
+                        }
+                    }
+
+                </div>
+
+                <div class="d-flex row mb-4">
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                        <div class="border w-75">
+                            <img src="~/Assest/pin1.png" alt="" style="margin-left: 6px; margin-top: 5px;">
+                            <br><br><br>
+                            <div class="d-flex flex-column width_sm">
+                                <span style="margin-left: 6px;">City</span>
+                                <span style="margin-left: 6px;">@Model.mission_vol.City.Name</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                        <div class="border w-75">
+                            <img src="~/Assest/web.png" alt="" style="margin-left: 6px; margin-top: 5px;">
+                            <br><br><br>
+                            <div class="d-flex flex-column width_sm">
+                                <span style="margin-left: 6px;">Theme</span>
+                                <span style="margin-left: 6px;">@Model.mission_vol.Theme.Title</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 pt-2 pt-md-0">
+                        <div class="border w-75">
+                            <img src="~/Assest/calender.png" alt="" style="margin-left: 6px; margin-top: 5px;">
+                            <br>
+                            <div class="d-flex flex-column mt-2 mt-md-0 width_sm">
+                                <span style="margin-left: 6px;">Date</span>
+                                @if (Model.mission_vol.MissionType == "TIME")
+                                {
+                                    <span style="margin-left: 6px;">@Model.mission_vol.StartDate.Value.ToShortDateString() to</span>
+                                    <span style="margin-left: 6px;">@Model.mission_vol.EndDate.Value.ToShortDateString()</span>
+                                }
+                                else
+                                {
+                                    <span style="margin-left: 6px;">Ongoing</span>
+                                    <span style="margin-left: 6px;">Opportunity</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 pt-2 pt-md-0">
+                        <div class="border w-75 ">
+                            <img src="~/Assest/organization.png" alt="" style="margin-left: 6px; margin-top: 5px;">
+                            <br><br><br>
+                            <div class="d-flex flex-column width_sm">
+                                <span style="margin-left: 6px;">Organization</span>
+                                <span style="margin-left: 6px;">@Model.mission_vol.OrganizationName</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center" id="Apply_btn">
+                    @{
+                        var check = @Model.MissionApplication.FirstOrDefault(m => m.MissionId == @Model.mission_vol.MissionId && m.UserId == @Model.user.UserId & m.ApprovalStatus != "DECLINE");
+                        if (@Model.mission_vol.MissionType == "TIME")
+                        {
+                            var Sheets = @Model.mission_vol.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @Model.mission_vol.MissionId).Count();
+                            if (Sheets > 0 && @Model.mission_vol.EndDate >= DateTime.Now && @Model.mission_vol.Deadline >= DateTime.Now)
+                            {
+                                if (check != null)
+                                {
+                                    if (check.ApprovalStatus == "APPROVE")
+                                    {
+                                        <button type="button" class="btn btn-outline-success  btn_sm w-25 h-auto" style="border-radius:24px">Already Applied</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-info  btn_sm w-25 h-auto" style="border-radius:24px">Pending</button>
+                                    }
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-primary btn_border btn_sm w-25 h-auto" id="ApplyMission" value="@Model.mission_vol.MissionId">
+                                        Apply <img src="~/Assest/right-arrow.png" alt="">
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-danger  btn_sm w-25 h-auto" style="border-radius:24px">Closed</button>
+                            }
+                        }
+                        else
+                        {
+                            var maxvalue = @Model.mission_vol.GoalMissions.FirstOrDefault(m => m.MissionId == @Model.mission_vol.MissionId).GoalValue;
+                            var sumofactionvalues = @Model.mission_vol.Timesheets.Where(m => m.MissionId == @Model.mission_vol.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                            var currentvalue = maxvalue - sumofactionvalues;
+
+                            if (currentvalue > 0 && @Model.mission_vol.EndDate >= DateTime.Now)
+                            {
+                                if (check != null)
+                                {
+                                    if (check.ApprovalStatus == "APPROVE")
+                                    {
+                                        <button type="button" class="btn btn-outline-success  btn_sm w-25 h-auto" style="border-radius:24px">Already Applied</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-outline-info  btn_sm w-25 h-auto" style="border-radius:24px">Pending</button>
+                                    }
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-outline-primary btn_border btn_sm w-25 h-auto" id="ApplyMission" value="@Model.mission_vol.MissionId">
+                                        Apply <img src="~/Assest/right-arrow.png" alt="">
+                                    </button>
+                                }
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-danger  btn_sm w-25 h-auto" style="border-radius:24px">Closed</button>
+                            }
+                        }
+
+
+
+
+
+
+
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Image bottom content -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-1" type="button"
+                                role="tab" aria-controls="home" aria-selected="true">
+                            Mission
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2" type="button" role="tab"
+                                aria-controls="profile" aria-selected="false">
+                            Organization
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3" type="button" role="tab"
+                                aria-controls="contact" aria-selected="false">
+                            Comments
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+                        <h1>Introduction</h1>
+
+                        <span style="font-size: smaller;">
+                            @Html.Raw(Model.mission_vol.Description)
+                        </span>
+
+                        <h1>Challenge</h1>
+
+                        <span style="font-size: smaller;">
+                            @Html.Raw(Model.mission_vol.Description)
+                        </span>
+
+                        <br>
+                        <h1>Document</h1>
+                        <br>
+                        <div class="d-xl-flex justify-content-between">
+
+                            @{
+
+
+                                foreach (var item in Model.mission_vol.MissionDocuments)
+                                {
+                                    if (item.DocumentType == "doc")
+                                    {
+                                        <div class="col-xl-auto d-flex flex-row mb-2 mb-xl-0">
+                                            <div class="border p-2 " style="border-radius: 20px;">
+                                                <a href="@item.DocumentPath" target="_blank" class="text-decoration-none">
+                                                    <img src="~/Assest/doc.png" alt="">
+                                                    <span style="font-size: smaller;">@item.DocumentName</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (item.DocumentType == "pdf")
+                                    {
+                                        <div class="col-xl-auto d-flex mb-2 mb-xl-0">
+                                            <div class="border p-2" style="border-radius: 20px;">
+                                                <a href="@item.DocumentPath" target="_blank" class="text-decoration-none">
+                                                    <img src="~/Assest/pdf.png" alt="">
+                                                    <span style="font-size: smaller;">@item.DocumentName</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-xl-auto d-flex mb-3 mb-xl-0">
+                                            <div class="border p-2" style="border-radius: 20px;">
+                                                <a href="@item.DocumentPath" target="_blank" class="text-decoration-none">
+                                                    <img src="~/Assest/xlsx.png" alt="">
+                                                    <span style="font-size: smaller;">@item.DocumentName</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-2" role="tabpanel">
+
+                        <div class="mb-3">
+                            <span>@Html.Raw(Model.mission_vol.OrganizationDetail)</span>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                        <div class="comment-area">
+                            <textarea class="form-control" placeholder="Enter your comments" id="textcomment"></textarea>
+                        </div>
+                        <div class="py-4">
+                            @if (checkforratinguservalidation != null)
+                            {
+                                <button type="button" class="btn btn-outline-primary btn_border w-25 w_btn_comment" id="Commentpost" data-missionId="@Model.mission_vol.MissionId" value="@Model.mission_vol.MissionId @Model.user.UserId">
+                                    Post
+                                    comment
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-primary btn_border w-25 w_btn_comment" style="pointer-events:none;" id="Commentpost" data-missionId="@Model.mission_vol.MissionId" value="@Model.mission_vol.MissionId @Model.user.UserId">
+                                    Post
+                                    comment
+                                </button>
+                            }
+
+                        </div>
+                        <div class="border b_w mb-3" id="For_comment" style="max-height:360px; overflow-x:hidden; overflow-y:scroll">
+                            <partial name="Commentview" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- information table & recent voluenteers table content -->
+            <div class="col-sm-12 col-lg-6 d-flex flex-column ps-sm-3">
+                <div class="border">
+                    <div class="col-12 border-bottom p-2">
+                        <h3>Information</h3>
+                    </div>
+                    <div class="col-12 border-bottom">
+                        <div class="d-flex p-2">
+                            <span class=" col-6 d-flex">Skills</span>
+                            <span class="col-6 text-wrap">
+                                @{
+                                    var skills = " ";
+                                    @foreach (var item in Model.mission_vol.MissionSkills)
+                                    {
+                                        skills = skills + item.Skill.SkillName + " ";
+                                    }
+                                    @skills
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-12 border-bottom">
+                        <div class="d-flex p-2">
+                            <span class=" col-6 d-flex">Days</span>
+                            <span class="col-6">@Model.mission_vol.Availability only</span>
+                        </div>
+                    </div>
+                    <div class="col-12 border-bottom">
+                        <div class="d-flex p-2">
+                            <span class=" col-6 d-flex">Rating</span>
+                            <span class="col-6">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= @ViewBag.Avg)
+                                    {
+                                        <img src="~/Assest/selected-star.png" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Assest/star-empty.png" width="24" height="22" alt="">
+                                    }
+                                }
+                                (by @ViewBag.Count volunteers)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" border ml-4 mt-5">
+                    <div class="col-12 border-bottom p-2">
+                        <h3>Recent Volunteers</h3>
+                    </div>
+                </div>
+
+
+                <div class="row row-cols-3 ps-3 pe-3 pt-2" style="border: 1px solid #dee2e6!important;margin-right: 0px;margin-left: 0px;">
+                    @foreach (var item in @Model.MissionApplication)
+                    {
+                        if (@item.UserId != @Model.user.UserId)
+                        {
+                            <div class="col mb-3 d-flex flex-column align-items-center justify-content-center text-center recent-vol">
+                                <img src="@item.User.Avatar" class="rounded-circle" width="60" height="60" alt="">
+                                <span>@item.User.FirstName @item.User.LastName</span>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-between border border-1" style="margin : 0px; align-items : center;">
+                            <li class="page-item disabled">
+                                <button id="prev-vol" style="border : none; background : none;">
+                                    <img src="~/Assest/left.png" alt="">
+                                </button>
+                            </li>
+                            <li class="page-item" id="recentvolpagenumber"></li>
+                            <li class="page-item">
+                                <button id="next-vol" style="border : none; background : none;"><img src="~/Assest/right-arrow1.png" alt=""></button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--related mission content  -->
+    <div class="container mt-5 ">
+        <div class="row mb-5">
+            <div class="col justify-content-center d-flex border-top ">
+                <h3>Related Mission</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.related_mission)
+            {
+                if (item.MissionId != Model.mission_vol.MissionId)
+                {
+                    <div class="col-12 col-md-6 col-lg-4 ">
+                        <div class="card" style="height:100%;">
+                            @{
+                                if (@Model.missionMedia.Count() > 0)
+                                {
+                                    var path1 = @Model.missionMedia.FirstOrDefault(m => m.MissionId == item.MissionId && m.MediaType == "PNG").MediaPath;
+                                    <img class="card-img-top mission_cardimg" src="@path1" height="220" width="300" alt="Card image cap">
+                                }
+                                else
+                                {
+                                    <img class="card-img-top mission_cardimg" height="220" width="300" src="~/Assest/emptyimage.png" alt="Card image cap">
+                                }
+
+                            }
+                            <div class="card-img">
+                                <div class="align-item-end loc_1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    @item.City.Name
+                                </div>
+                                <div class="heart_1">
+                                    @*<img src="~/Assest/heart.png" alt="">*@
+                                    @{
+                                        var favorit = @item.FavoriteMissions.FirstOrDefault(m => m.UserId == @Model.user.UserId);
+
+                                        if (favorit != null)
+                                        {
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill fill-red  " style="color:red;pointer-events:none" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+
+
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Assest/heart.png" alt="">
+
+                                        }
+
+                                    }
+
+                                </div>
+                                <div class="add_friend_1">
+                                    <img src="~/Assest/add1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="env">
+                                <span>@item.Theme.Title</span>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title" style="color: solid black;">
+                                    @item.Title
+                                </h3>
+                                <p class="card-text mrg_1024_v2">@Html.Raw(item.Description)</p>
+                                <div class="d-flex justify-content-between border-bottom mrg_lap mb-3 pb-5" style="z-index: 1;">
+                                    <span>@item.OrganizationName</span>
+                                    <div>
+                                        @{
+                                            var rating = @Model.MissionRating.Where(rating => rating.DeletedAt == null).ToList();
+                                            float number = 0;
+                                            long sum = 0;
+                                            long count = 0;
+                                            if (@rating != null)
+                                            {
+                                                for (int i = 0; i < @rating.Count(); i++)
+                                                {
+                                                    if (@rating[i].MissionId == @item.MissionId)
+                                                    {
+                                                        sum += @rating[i].Rating;
+                                                        number++;
+                                                        count++;
+                                                    }
+                                                }
+                                                float avg = sum / number;
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= avg)
+                                                    {
+                                                        <img src="~/Assest/selected-star.png" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Assest/star-empty.png" width="24" height="22" alt="">
+                                                    }
+                                                }
+                                            }
+
+
+                                        }
+                                    </div>
+                                </div>
+                                <div class=" d-flex justify-content-center mb-2 mrg_laptop_1" style="z-index: 2; margin-top: -28px;">
+
+                                    @if (@item.MissionType == "TIME")
+                                    {
+                                        <span class="border date_1" style="background-color:white;"> From @item.StartDate.Value.ToShortDateString() until @item.EndDate.Value.ToShortDateString() </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="border date_1" style="background-color:white;">@item.GoalMissions.FirstOrDefault(id => id.MissionId == item.MissionId).GoalObjectiveText</span>
+                                    }
+
+                                </div>
+
+                                @if (@item.MissionType == "TIME")
+                                {
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <img src="~/Assest/Seats-left.png" alt="">
+                                            @*<span>10</span>*@
+                                            @{
+                                                var sheets = @item.TotalSheet - @Model.Related_MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+                                                <span>@sheets</span>
+                                            }
+
+                                        </div>
+                                        <div class="margin_right_date">
+                                            <img src="~/Assest/deadline.png" alt="">
+                                            <span>09/01/2019</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mrg_lap_2 border-bottom mb-3 mrg_laptop">
+                                        <span>Seats-left</span>
+                                        <span class="deadline">Deadline</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex flex-row justify-content-between mb-2 border-bottom">
+                                        <div class="d-flex flex-row">
+                                            <div class="">
+                                                <img src="~/Assest/Seats-left.png" alt="">
+                                            </div>
+                                            <div class="d-flex mr_1 flex-column">
+                                                @*<span>10</span>*@
+                                                @{
+                                                    var sheets = @item.TotalSheet - @Model.Related_MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+                                                    <span>@sheets</span>
+                                                }
+                                                <span>Seats-left</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <img src="~/Assest/achieved.png" class="" alt="">
+                                            </div>
+                                            <div class="d-flex flex-column mr_1">
+                                                @*<div class="deadlinefont"><progress max="10000" value="8000"></progress></div>
+                                                    <span class="deadline">8000 achieved</span>        *@
+
+                                                @{
+                                                    var maxvalue = @item.GoalMissions.FirstOrDefault(m => m.MissionId == @item.MissionId).GoalValue;
+                                                    var sumofactionvalues = @item.Timesheets.Where(m => m.MissionId == @item.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                                    var currentvalue = maxvalue - sumofactionvalues;
+                                                    <div class="deadlinefont"><progress max="@maxvalue" value="@sumofactionvalues"></progress></div>
+                                                    <span class="deadline">@sumofactionvalues achieved</span>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+                                <div class="d-flex justify-content-center pt-2">
+                                    @{
+                                        var checkStatus = @Model.Related_MissionApplication.FirstOrDefault(m => m.MissionId == @item.MissionId && m.UserId == @Model.user.UserId && m.ApprovalStatus != "DECLINE");
+                                        if (@item.MissionType == "TIME")
+                                        {
+                                            var sheets = @item.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+                                            if (sheets > 0 && @item.EndDate >= DateTime.Now && @item.Deadline >= DateTime.Now)
+                                            {
+                                                if (checkStatus != null)
+                                                {
+                                                    <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                        View Details <img src="~/Assest/right-arrow.png" alt="">
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                        Apply <img src="~/Assest/right-arrow.png" alt="">
+                                                    </a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing1 btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    Closed Mission <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var maxvalue = @item.GoalMissions.FirstOrDefault(m => m.MissionId == @item.MissionId).GoalValue;
+                                            var sumofactionvalues = @item.Timesheets.Where(m => m.MissionId == @item.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                            var currentvalue = maxvalue - sumofactionvalues;
+                                            if (currentvalue > 0 && @item.EndDate >= DateTime.Now)
+                                            {
+                                                if (checkStatus != null)
+                                                {
+                                                    <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                        View Details <img src="~/Assest/right-arrow.png" alt="">
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                        Apply <img src="~/Assest/right-arrow.png" alt="">
+                                                    </a>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing1 btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    Closed Mission <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="recommended" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Recommend to a Co-Worker</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container" style="max-height:300px;overflow-y:scroll;">
+                    @foreach (var item in Model.User)
+                    {
+                        @if (ViewBag.id != item.UserId && item.Role != "Admin" && item.DeletedAt == null && item.Status == "1")
+                        {
+                            <div class="d-flex justify-content-between border-bottom">
+                                <div class="mb-2">
+                                    <img src="@item.Avatar" style="border-radius: 100%; width:40px; height:40px;" />
+                                    <span calss="">@item.FirstName @item.LastName</span>
+
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-outline-primary recom pt-1" value="@Model.mission_vol.MissionId @item.UserId @Model.user.UserId @item.Email">Invite</button>
+                                </div>
+                            </div>
+
+                        }
+
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+            
+     <footer class="border-top mt-3 footer text-muted">
+        <div class="container d-flex align-items-center justify-content-start gap-3" >
+        &copy; 2023 - CI-Platform
+
+            <a asp-controller="Policy" asp-action="PolicyPage" class="btn" style="color:blue" >
+                Policy
+            </a>
+        </div>
+    </footer>
+
+    @*Recent Volunteers*@
+    <script>
+        function Page1_View() {
+            document.getElementById("page1").style.display = "block";
+            document.getElementById("page2").style.display = "none";
+            document.getElementById("page3").style.display = "none";
+        }
+        function Page2_View() {
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "block";
+            document.getElementById("page3").style.display = "none";
+        }
+
+        function Page3_View() {
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "none";
+            document.getElementById("page3").style.display = "block";
+        }
+
+
+    </script>
+
+    @*<script src="~/js/site.js" ></script*@
+    
+    <script src="~/js/vol.js"></script>
+    <script>
+
+    $(document).ready(function(){
+        $.ajax({
+            type: "GET",
+            url: "/Policy/CmsPagePolicy",
+            data:{ },
+            dataType:'json',
+            success: function (data) {
+                console.log(data);
+                var policy=" ";
+                for(var i=0;i<data.length;i++){
+                    policy+=`<li><a class="dropdown-item" href="/Policy/PolicyPage#${data[i].slug}">${data[i].title}</a></li>`
+                }
+                $("#Policypages").html(policy);
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
+
+

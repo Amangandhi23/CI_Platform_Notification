@@ -1,0 +1,303 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CI_Platform.Entities.ViewModel.Admintables
+
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <h3>Mission</h3>
+        <button type="button" class="btn orage_color text-center mb-2" style="border: 2px solid #F88634;color: #F88634;" onclick="AddEditMissionRedirect()">Add</button>
+    </div>
+
+    <hr>
+    <div class="table-responsive">
+
+        <table class="table table-striped border DataTable" style="background-color: #f9f9f9;">
+            <thead>
+                <tr>
+                    <th scope="col">Mission Title</th>
+                    <th scope="col">Mission Type</th>
+                    <th scope="col">StartDate</th>
+                    <th scope="col">EndDate</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.MissionList)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.MissionType</td>
+                        <td>@item.StartDate.Value.ToShortDateString()</td>
+                        <td>@item.EndDate.Value.ToShortDateString()</td>
+                        <td>
+                            <button onclick="GetMissionData(@item.MissionId)"
+                                style="border:none;background:none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor" class="bi bi-pencil-square"
+                                 viewBox="0 0 16 16" style="fill:orange; pointer-events:none;">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </button>
+                            <button data-bs-toggle="modal" data-bs-target="#DeleteItemForMission" onclick="FillDeletedId(@item.MissionId)"
+                                style="border:none;background:none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"
+                                 style="fill:black;">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+     <script type="text/javascript">
+        $(document).ready(function () {
+            $('.DataTable').DataTable({
+                info: false,
+                lengthChange: false,
+                dom: '<"float-start"f><"#DataTablesId"t>i<"#paginatorId"lp>',
+                pageLength: 5,
+                destroy: false,
+                retrieve: true,
+                paging: true,
+                deferLoading: 57,
+                searching:true,
+                responsive:true,
+                language: {
+                    searchPlaceholder: "Search records"
+                },
+            });
+        });
+    </script>
+</div>
+
+
+
+
+@*Modal For DeleteRecords Perpose*@
+<div class="modal fade" id="DeleteItemForMission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-SM">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input hidden name="id" class="AddDeleteId" value=""/>
+                <span>Are you sure you want to delete this item?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success text-center rounded-pill" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger text-center rounded-pill" data-bs-dismiss="modal" onclick="ItemDeleted('Mission')">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Add And Edit Mission Details
+
+<div class="modal fade" id="AddMission" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="pointer-events: none;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <form asp-controller="Admin" asp-action="AddUserData">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Mission Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height:600px;overflow-y:scroll;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Title</label>
+                                <input value="@Model.Title" type="text" class="form-control fname" placeholder="Enter Your Title" />
+                                <input hidden value="@Model.MissionId" type="text" class="form-control MissionId" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">ShortDescription</label>
+                                <input value="@Model.ShortDescription" type="text" class="form-control lname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Description</label>
+                                <input value="@Model.Description" type="text" class="form-control lname">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">MissionType</label>
+                                <select value="@Model.MissionType" class="form-select mt-1 mb-3 mtype" aria-label="Default select example">
+                                    <option value="TIME" selected>Time</option>
+                                    <option value="GO">Goal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Total Sheets</label>
+                                <input value="@Model.TotalSheet" type="text" class="form-control totle_sheet">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">StartDate</label>
+                                <input value="@Model.StartDate" type="date" class="form-control sdate" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">EndDate</label>
+                                <input value="@Model.EndDate" type="date" class="form-control edate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Organization Name</label>
+                                <input value="@Model.OrganizationName" type="text" class="form-control oname" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">OrganizationDetail</label>
+                                <input value="@Model.OrganizationDetail" type="text" class="form-control odetail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label>Availability</label>
+                                <select class="form-select mt-1 mb-3" aria-label="Default select example">
+                                    <option value="-1" selected>Select Availability</option>
+                                    <option value="1">Daily</option>
+                                    <option value="2">Weekly</option>
+                                    <option value="3">Weekend</option>
+                                    <option value="4">Monthly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label>Select</label>
+                                <select class="form-select mt-1 mb-3" aria-label="Default select example">
+                                    <option value="0" selected>InActive</option>
+                                    <option value="1">Active</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="CountryList">Country</label>
+                                <select id="CountrySelect" asp-for="@Model.CountryId" class="form-select mt-1 mb-3 CountrySelect" name="CountryList" aria-label="Default select example">
+
+                                    <option value="-1" selected>Select Country</option>
+
+                                    @foreach (var countries in Model.CountriesList)
+                                    {
+                                        <option value="@countries.CountryId">@countries.Name</option>
+
+                                    }
+                                </select>
+
+                                <div id="CountrySelect_validation" style="display:none;">
+                                    <span style="color:red; padding-left:6px">
+                                        First Name Required!
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label for="CityList">City</label>
+                                <select asp-for="@Model.CityID" id="CityList" class="form-select mt-1 mb-3 CityList " name="CityList" aria-label="Default select example">
+
+
+                                    <option value="-1" selected>Select City</option>
+
+                                    @foreach (var cities in Model.CityList.Where(m => m.CountryId == @Model.CountryId))
+                                    {
+                                        <option class="CitySelect" value="@cities.CityId">@cities.Name</option>
+
+                                    }
+                                </select>
+                                <div id="CityList_validation" style="display:none;">
+                                    <span style="color:red; padding-left:6px">
+                                        First Name Required!
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label>Theme</label>
+                                <select asp-for="@Model.ThemeId" id="ThemeList" class="form-select mt-1 mb-3 ThemeList " name="ThemeList" aria-label="Default select example" >
+
+
+                                    <option value="-1" selected>Select Theme</option>
+
+                                    @foreach (var themes in Model.MissionThemeList)
+                                    {
+                                        <option class="CitySelect" value="@themes.MissionThemeId">@themes.Title</option>
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <div class="mb-3">
+                                <label>Skill</label>
+                                <select asp-for="@Model.SkillId" id="SkillList" class="form-select mt-1 mb-3 SkillList " name="SkillList" aria-label="Default select example">
+
+
+                                    <option value="-1" selected>Select Theme</option>
+
+                                    @foreach (var themes in Model.SkillList)
+                                    {
+                                        <option class="SkillSelect" value="@themes.SkillId">@themes.SkillName</option>
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-center rounded-pill" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn orage_color text-center rounded-pill" data-bs-dismiss="modal" onclick="AddUserData()" style="border: 2px solid #F88634;color: #F88634;">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+*@

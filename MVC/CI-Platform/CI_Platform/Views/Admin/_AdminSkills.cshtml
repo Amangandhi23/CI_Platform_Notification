@@ -1,0 +1,118 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model CI_Platform.Entities.ViewModel.Admintables
+
+
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <h3>Skills</h3>
+        <button type="button" class="btn orage_color text-center mb-2" style="border: 2px solid #F88634;color: #F88634;" data-bs-toggle="modal" data-bs-target="#AddSKillBtn">Add</button>
+    </div>
+
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-striped border DataTable" style="background-color: #f9f9f9;">
+            <thead style="background-color: #f9f9f9;">
+                <tr>
+                    <th scope="col">Skill Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.SkillList)
+                {
+                    <tr>
+                        @{
+                            var SkillName = @item.SkillName;
+                            var Status = @item.Status;
+
+                            <td>@SkillName</td>
+                            @if (@Status == 1)
+                            {
+                                <td style="color:green;">Active</td>
+                                <td>
+                                    <button disabled
+                                        style="border:none;background:none;opacity:0.3;">
+                                        <i class="bi bi-check-circle" style="color:green;"></i>
+                                    </button>
+
+                                    <button type="submit" class="" style="border:none;background:none; opacity:1;" onclick="skillstatus(0,@item.SkillId)">
+                                        <i class="bi bi-x-circle bg-denger" style="color:red;"></i>
+                                    </button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:red;">Panding</td>
+                                <td>
+                                    <button type="submit" style="border:none;background:none; opacity:1;" class="" onclick="skillstatus(1,@item.SkillId)">
+                                        <i class="bi bi-check-circle" style="color:green;"></i>
+                                    </button>
+
+                                    <button disabled
+                                    style="border:none;background:none;opacity:0.3;">
+                                        <i class="bi bi-x-circle bg-denger" style="color:red;"></i>
+                                    </button>
+                                </td>
+                                
+                            }
+                            
+                        }
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $('.DataTable').DataTable({
+                    info: false,
+                    lengthChange: false,
+                    dom: '<"float-start"f><"#DataTablesId"t>i<"#paginatorId"lp>',
+                    pageLength: 5,
+                    destroy: false,
+                    retrieve: true,
+                    paging: true,
+                    deferLoading: 57,
+                    searching:true,
+                    responsive:true,
+                    language: {
+                        searchPlaceholder: "Search records"
+                    },
+                });
+            });
+    </script>
+</div>
+    
+    
+        
+        <div class="modal fade" id="AddSKillBtn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please input below Volunteering Hours</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Skill Name</label>
+                    <input id="skillname" value="" type="text" class="form-control Goaltitle" />
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn text-center rounded-pill" data-bs-dismiss="modal" style="border: 1px solid black;">Close</button>
+                <button type="submit" class="btn orage_color text-center rounded-pill" data-bs-dismiss="modal" onclick="AddSkillData()" style="border: 2px solid #F88634;color: #F88634;">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+

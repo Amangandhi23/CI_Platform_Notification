@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Policy Page";
+    Layout = "_Profilelayout" ;
+}
+
+@model CI_Platform.Entities.ViewModel.Profile
+
+    <div class="container">
+        <h1>Privacy and Cookies Policy</h1>
+    </div>
+
+    <div class="container">
+        <!-- <div class="row" style="position: sticky;top: 0px;">
+            <div style="position: sticky;top: 0px;">
+                <h1>Privacy and Cookies Policy</h1>
+            </div>
+        </div> -->
+        <div class="row mt-3">
+            <div class="col-sm-12 col-md-3">
+                <div class=" list-group" id="list-example" style="position: sticky;top: 50px;">
+                    
+                    
+                    @foreach (var item in @Model.Policy)
+                    {
+                        <a class="d-flex justify-content-between border-bottom my-3" href="#@item.Slug" style="text-decoration:none;">
+                            <span style="font-size:15px; color: black" class="my-1">@item.Title</span>
+                            <img src="/Assest/right-arrow1.png" class="my-1" height="10" width="10" alt="">
+                        </a>        
+                    }
+                    
+
+                </div>
+
+            </div>
+
+            <div class="col-md-9 col-sm-12 mt-2" data-bs-spy="scroll" data-bs-target="#navbar-example3"
+                data-bs-offset="0" tabindex="0">
+                
+                
+                    @foreach (var item in @Model.Policy)
+                    {
+                        <div class="border-bottom" id="@item.Slug" style="display:block;">
+                        <h3>
+                            @item.Title
+                        </h3>
+                        @Html.Raw(item.Description)
+                        </div>
+                    }
+                    
+                    
+                
+
+            </div>
+        </div>
+    </div>
+
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

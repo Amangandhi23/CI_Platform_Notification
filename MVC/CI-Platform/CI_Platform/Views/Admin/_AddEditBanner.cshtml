@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CI_Platform.Entities.ViewModel.Admintables
+
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <h3>Banner Data</h3>
+    </div>
+
+    <hr>
+    <div class="mb-3">
+        <label for="recipient-name" class="col-form-label">Banner Text</label>
+        <input asp-for="@Model.Text" value="@Model.Text" type="text" class="form-control btext" oninput="HideErrorMessage('bannertextspan')" />
+        <input asp-for="@Model.BannerId" value="@Model.BannerId" type="text" hidden class="form-control bennerid" />
+        <span class="text-danger hide" id="bannertextspan" style="display:none;">Text is required</span>
+    </div>
+
+    <div class="mb-3">
+        <label for="recipient-name" class="col-form-label">Sort Order</label>
+        <input asp-for="@Model.SortOrder" value="@Model.SortOrder" type="text" class="form-control bannersortorder" oninput="HideErrorMessage('bannersortspan')" />
+        <span class="text-danger hide" id="bannersortspan" style="display:none;">SortOrder is required</span>
+    </div>
+
+    <div class="mb-3">
+        <label for="recipient-name" class="col-form-label">Add Image</label>
+        <div class="card drag-card" style="border: none;">
+            <div class="drag-area">
+                <span class="visible">
+                    <span class="select" role="button" onclick="chooseImageBanner()"><img src="~/Assest/drag-and-drop.png"></span>
+                </span>
+                <span class="on-drop">Drop images here</span>
+                <input name="files" type="file" class="file" id="bannerimg1" accept=".png, .jpg, .jpeg" />
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <!-- IMAGE PREVIEW CONTAINER -->
+        <div class="container-img mt-3">
+            <img  src="@Model.BannerImg" id="ImageChooseFile" />
+            <input asp-for="@Model.BannerImg" value="@Model.BannerImg" class="setimg" type="text" hidden class="form-control bennerid" />
+        </div>
+    </div>
+</div>
+
+
+<div class="text-end mt-4 mb-3">
+    <button type="button" id="CancelCMSAddEdit" class="btn border-secondary px-3 py-1 text-secondary text-center rounded-pill bg-white" onclick="ReturnBannerPage()">Cancel</button>
+    <button type="button" class="btn px-3 text-success py-1 border-success text-center rounded-pill bg-white" onclick="AddBannerData()">Save</button>
+</div>
+
+
+
+<script>
+   
+    uploadBtn = document.getElementById("bannerimg1");
+    chosenImage = document.getElementById("ImageChooseFile");
+    
+    uploadBtn.onchange = () => {
+        let reader = new FileReader();
+        reader.readAsDataURL(uploadBtn.files[0]);
+        console.log(uploadBtn.files[0]);
+        console.log(chosenImage);
+        chosenImage.setAttribute("src", URL.createObjectURL(uploadBtn.files[0]));
+        ImageArrayForBanner.length = 0;
+        ImageArrayForBanner.push(uploadBtn.files[0]);
+    
+    }
+
+    $(document).ready(function(){
+        chosenImage.setAttribute("src", URL.createObjectURL($('.setimg').val()));
+        var path = $('.setimg').val();
+        ImgPathForBanner.push(path);
+
+    });
+
+
+</script>

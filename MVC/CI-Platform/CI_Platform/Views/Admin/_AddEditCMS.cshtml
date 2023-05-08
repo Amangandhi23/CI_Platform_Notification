@@ -1,0 +1,45 @@
+﻿@model CI_Platform.Entities.ViewModel.Admintables
+
+
+<div class="row">
+    <div>
+        <h3 id="CmsHeaderTitle" class="AddCMSPageheader">CMS Page</h3>
+    </div>
+    <div class="AddCMSPagedata">
+        <form method="post" onsubmit="return ValidCheckCMS()">
+            <input asp-for="@Model.CmsPageId" value="@Model.CmsPageId" id="cmsId" hidden>
+            <div class="mb-3">
+                <label class="form-label">Title :</label>
+                <input asp-for="@Model.Title" class="form-control cmstitle" value="@Model.Title" id="cmstitle" oninput="HideErrorMessage('cmstitlespan')">
+                <span class="text-danger hide"   id="cmstitlespan" style="display:none;">Title is required</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description :</label>
+                <textarea asp-for="@Model.Description" value="@Model.Description" id="content" class="ckeditor form-control content" ></textarea>
+                <span class="text-danger hide" id="descriptionspan" style="display:none;">Description is required</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Slug :</label>
+                <input asp-for="@Model.Slug" value="@Model.Slug" class="form-control cmsslug" id="cmsslug" oninput="HideErrorMessage('cmsslugspan')">
+                <span class="text-danger hide" id="cmsslugspan" style="display:none;">Slug is required</span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Status :</label>
+                <select asp-for="@Model.Status" id="cmsstatus" value="@Model.Status" class="form-select" aria-label="Default select example">
+                    <option value="1" selected>Active</option>
+                    <option value="0">InActive</option>
+                </select>
+            </div>
+            <div class="text-end">
+                <button type="button" id="CancelCMSAddEdit" class="btn border-secondary px-3 py-1 text-secondary text-center rounded-pill bg-white" onclick="ReturnCmsPage()">Cancel</button>
+                <button type="button" class="btn px-3 text-success py-1 border-success text-center rounded-pill bg-white" onclick="AddEditCMSData()">Save</button>
+
+            </div>
+        </form>
+    </div>
+    <script src="~/js/ckeditor/ckeditor.js" asp-append-version="true"></script>
+</div>
+
+
+    

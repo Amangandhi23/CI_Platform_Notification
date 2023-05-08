@@ -1,0 +1,130 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CI_Platform.Entities.ViewModel.Admintables
+
+<div class="row">
+    <div class="d-flex justify-content-between">
+        <h3>Story</h3>
+    </div>
+
+    <hr>
+    <div class="table-responsive">
+
+        <table class="table table-striped border DataTable" style="background-color: #f9f9f9;">
+            <thead>
+                <tr>
+                    <th scope="col">Story Title</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Mission Title</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.StoryList)
+                {
+
+
+                    var StoryTitle = @item.Title;
+                    var Name = @item.User.FirstName + " " + @item.User.LastName;
+                    var MissionTitle = @item.Mission.Title;
+
+                    <tr>
+                        <td>@StoryTitle</td>
+                        <td>@Name</td>
+                        <td>@MissionTitle</td>
+                        <td>
+                            <button type="button" class="btn view_btn" onclick="Viewdetail(@item.StoryId)">View</button>
+                            @if (@item.Status == "PENDING")
+                            {
+                                <button type="submit" style="border:none;background:none;" onclick="StstusCheckForStory('PUBLISHED',@item.StoryId)">
+                                    <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                                </button>
+
+                                <button type="submit" style="border:none;background:none;" onclick="StstusCheckForStory('DECLINED',@item.StoryId)">
+                                    <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                                </button>
+                            }
+                            else if (@item.Status == "PUBLISHED")
+                            {
+                                <button type="submit" disabled style="border:none;background:none;opacity:0.5;" onclick="StstusCheckForStory('PUBLISHED',@item.StoryId)">
+                                    <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                                </button>
+
+                                <button type="submit" style="border:none;background:none;" onclick="StstusCheckForStory('DECLINED',@item.StoryId)">
+                                    <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="submit" style="border:none;background:none;" onclick="StstusCheckForStory('PUBLISHED',@item.StoryId)">
+                                    <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                                </button>
+
+                                <button type="submit" disabled style="border:none;background:none;opacity:0.5;" onclick="StstusCheckForStory('DECLINED',@item.StoryId)">
+                                    <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                                </button>
+                            }
+
+                            <button style="border:none;background:none;" data-bs-toggle="modal" data-bs-target="#DeleteItem1" onclick="FillDeletedId(@item.StoryId)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                 fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"
+                                 style="fill:black;">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.DataTable').DataTable({
+                info: false,
+                lengthChange: false,
+                dom: '<"float-start"f><"#DataTablesId"t>i<"#paginatorId"lp>',
+                pageLength: 5,
+                destroy: false,
+                retrieve: true,
+                paging: true,
+                deferLoading: 57,
+                searching:true,
+                responsive:true,
+                language: {
+                    searchPlaceholder: "Search records"
+                },
+            });
+        });
+    </script>
+</div>
+
+
+
+
+@*Modal For DeleteRecords Perpose*@
+<div class="modal fade" id="DeleteItem1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-SM">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input hidden name="id" class="AddDeleteId" />
+                <span>Are you sure you want to delete this item?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success text-center rounded-pill" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger text-center rounded-pill" data-bs-dismiss="modal" onclick="ItemDeleted('Story')">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+

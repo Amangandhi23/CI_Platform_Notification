@@ -1,0 +1,536 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CI_Platform.Entities.ViewModel.Mission_data
+
+
+
+
+
+
+
+@if (@Model.Mission.Count() > 0)
+{
+    <p class="d-none" id="PartialMissionCount">@Model.Mission.Count()</p>
+
+    <div class="container" id="grid-view">
+
+        <div class="row" id="gridmission__row">
+
+            @foreach (var item in Model.Mission)
+            {
+
+                <div class="col-12 col-md-6 col-lg-4 pt-3 mission_div">
+                    <div class="card" style="height:100%;">
+
+                        @{
+                            if (@Model.missionMedia.Count() > 0)
+                            {
+                                var path = @Model.missionMedia.FirstOrDefault(m => m.MissionId == item.MissionId && m.MediaType == "PNG").MediaPath;
+                                <img class="card-img-top mission_cardimg" height="220" width="300" src="@path" alt="Card image cap">
+                            }
+                            else
+                            {
+                                <img class="card-img-top mission_cardimg" height="220" width="300" src="~/Assest/emptyimage.png" alt="Card image cap">
+                            }
+                        }
+
+
+
+
+
+                        <div class="card-img ">
+                            <div class="align-item-end loc">
+                                <i class="bi bi-geo-alt"></i>
+                                @item.City.Name
+                            </div>
+                            <div class="align-item-end loc hide">
+                                <i class="bi bi-geo-alt"></i>
+                                @item.Country.Name
+                            </div>
+                            <div class="align-item-end loc hide">
+                                <i class="bi bi-geo-alt"></i>
+                                @item.MissionSkills
+                            </div>
+                            <div class="heart" width="25" height="25">
+                                @{
+                                    var favorit = @item.FavoriteMissions.FirstOrDefault(m => m.UserId == @Model.user.UserId);
+
+                                    if (favorit != null)
+                                    {
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill fill-red  " style="color:red;pointer-events:none" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+
+
+                                        </svg>
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Assest/heart.png" alt="">
+
+                                    }
+
+                                }
+                            </div>
+                            <div class="add_friend">
+                                <img src="~/Assest/add1.png" alt="">
+                            </div>
+                        </div>
+                        <div class="env  border">
+                            <span>@item.Theme.Title</span>
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="card-title" style="color:black !important;">@item.Title</h3>
+                            <p class="card-text">@item.ShortDescription</p>
+                            <div class="d-flex justify-content-between mb-3 border-bottom pb-5" style="z-index: 1; ">
+                                <span class="margin_for_1024">@item.OrganizationName</span>
+                                <div>
+                                    @{
+                                        var rating = @Model.MissionRating.Where(del => del.DeletedAt == null).ToList();
+                                        float number = 0;
+                                        long sum = 0;
+                                        long count = 0;
+                                        if (@rating != null)
+                                        {
+                                            for (int i = 0; i < @rating.Count(); i++)
+                                            {
+                                                if (@rating[i].MissionId == @item.MissionId)
+                                                {
+                                                    sum += @rating[i].Rating;
+                                                    number++;
+                                                    count++;
+                                                }
+                                            }
+                                            float avg = sum / number;
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                if (i <= avg)
+                                                {
+                                                    <img src="~/Assest/selected-star.png" alt="">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Assest/star-empty.png" width="24" height="22" alt="">
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                            <div class=" d-flex justify-content-center mb-2" style="z-index: 2; margin-top: -28px;">
+                                @if (@item.MissionType == "TIME")
+                                {
+                                    <span class="border date_1" style="background-color:white;"> From @item.StartDate.Value.ToShortDateString() until @item.EndDate.Value.ToShortDateString() </span>
+                                }
+                                else
+                                {
+                                    <span class="border date_1" style="background-color:white;">@item.GoalMissions.FirstOrDefault(id => id.MissionId == item.MissionId).GoalObjectiveText</span>
+                                }
+
+                            </div>
+                            @if (@item.MissionType == "TIME")
+                            {
+                                var sheets = @item.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <img src="~/Assest/Seats-left.png" alt="">
+                                        <span>@sheets</span>
+                                    </div>
+                                    <div class="margin_right_date">
+                                        <img src="~/Assest/deadline.png" alt="">
+                                        <span>@item.Deadline.Value.ToShortDateString()</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between border-bottom mb-3">
+                                    <span>Seats-left</span>
+                                    <span class="deadline">Deadline</span>
+                                </div>
+
+
+                            }
+                            else
+                            {
+
+                                var maxvalue = @item.GoalMissions.FirstOrDefault(m => m.MissionId == @item.MissionId).GoalValue;
+                                var sumofactionvalues = @item.Timesheets.Where(m => m.MissionId == @item.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                var currentvalue = maxvalue - sumofactionvalues;
+
+
+                                <div class="d-flex flex-row justify-content-between mb-2 border-bottom">
+
+                                    <div class="d-flex">
+                                        <div class="">
+                                            <img src="~/Assest/achieved.png" class="" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column mr_1">
+                                            <div class="deadlinefont"><progress max="@maxvalue" value="@sumofactionvalues"></progress></div>
+                                            <span class="deadline">@sumofactionvalues achieved</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            }
+
+                            <div class="d-flex justify-content-center">
+                                @{
+                                    var check = @Model.MissionApplication.FirstOrDefault(m => m.MissionId == @item.MissionId && m.UserId == @Model.user.UserId && m.ApprovalStatus != "DECLINE");
+                                    if (@item.MissionType == "TIME")
+                                    {
+                                        var sheets = @item.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+                                        if (sheets > 0 && @item.EndDate >= DateTime.Now && @item.Deadline >= DateTime.Now)
+                                        {
+                                            if (check != null)
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    View Details <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    Apply <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a type="button" class="btn btn_hover_for_landing1 btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                Closed Mission
+                                            </a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var maxvalue = @item.GoalMissions.FirstOrDefault(m => m.MissionId == @item.MissionId).GoalValue;
+                                        var sumofactionvalues = @item.Timesheets.Where(m => m.MissionId == @item.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                        var currentvalue = maxvalue - sumofactionvalues;
+                                        if (currentvalue > 0 && @item.EndDate >= DateTime.Now)
+                                        {
+                                            if (check != null)
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    View Details <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    Apply <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a type="button" class="btn btn_hover_for_landing1 btn_border w-50 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                Mission Closed
+                                            </a>
+                                        }
+
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            }
+        </div>
+        
+    </div>
+
+
+
+    <div id="list-view" style="display:none;">
+        <div class="container d-none d-md-block" id="list_view">
+            @foreach (var item in Model.Mission)
+            {
+
+                <div class="card mission_div">
+                    <div class="row">
+
+                        <div class="col-3 list_card list_view_div ">
+                            @{
+                                if (@Model.missionMedia.Count() > 0)
+                                {
+                                    var path = @Model.missionMedia.FirstOrDefault(m => m.MissionId == item.MissionId && m.MediaType == "PNG").MediaPath;
+                                    <img class="img-fluid  h-100"
+                             src="@path"
+                             alt="Card image cap">
+                                }
+                                else
+                                {
+                                    <img class="card-img-top h-100" src="~/Assest/emptyimage.png" alt="Card image cap">
+                                }
+
+                            }
+
+
+                            <div class="card-img">
+                                <div class="align-item-end loc_l1">
+                                    <i class="bi bi-geo-alt"></i>
+                                    @item.City.Name
+                                </div>
+                                <div class="heart_l1">
+                                    @{
+                                        var favorit = @item.FavoriteMissions.FirstOrDefault(m => m.UserId == @Model.user.UserId);
+
+                                        if (favorit != null)
+                                        {
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill fill-red  " style="color:red;pointer-events:none" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                                            </svg>
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Assest/heart.png" alt="">
+
+                                        }
+
+                                    }
+
+                                </div>
+                                <div class="add_friend_l1">
+                                    <img src="~/Assest/add1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="theme_list border">
+                                @item.Theme.Title
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <h5 class="card-title">@item.Title</h5>
+                            <p class="card-text">@item.ShortDescription</p>
+                            <div class="d-flex flex-direction-row justify-content-between mb-3">
+                                <div class=" d-flex flex-direction-row justify-content-between mb-3">
+                                    <span>@item.OrganizationName</span>
+                                    <div class="list_img">
+                                        @{
+                                            var rating = @Model.MissionRating.ToList();
+                                            float number = 0;
+                                            long sum = 0;
+                                            long count = 0;
+                                            if (@rating != null)
+                                            {
+                                                for (int i = 0; i < @rating.Count(); i++)
+                                                {
+                                                    if (@rating[i].MissionId == @item.MissionId)
+                                                    {
+                                                        sum += @rating[i].Rating;
+                                                        number++;
+                                                        count++;
+                                                    }
+                                                }
+                                                float avg = sum / number;
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= avg)
+                                                    {
+                                                        <img src="~/Assest/selected-star.png" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Assest/star-empty.png" width="24" height="22" alt="">
+                                                    }
+                                                }
+                                            }
+
+
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="justify-content-center mr-1">
+                                    <span class="border date_1"> From @item.StartDate.Value.ToShortDateString() until @item.EndDate.Value.ToShortDateString() </span>
+                                </div>
+                            </div>
+                            @if (item.MissionType == "TIME")
+                            {
+                                <div class="d-flex flex-direction-row justify-content-between">
+                                    <div>
+
+                                        @{
+                                            var sheets = @item.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+                                            <img src="~/Assest/Seats-left.png" alt="">
+                                            <span>@sheets</span>
+
+                                        }
+
+                                    </div>
+                                    <div class="">
+                                        <img src="~/Assest/deadline.png" alt="">
+                                        <span>@item.Deadline.Value.ToShortDateString()</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-direction-row justify-content-between">
+                                    <span>Seats-left</span>
+                                    <span class="deadline">Deadline</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex flex-direction-row justify-content-between">
+                                    <div class="">
+                                        @{
+                                            var maxvalue = @item.GoalMissions.FirstOrDefault(m => m.MissionId == @item.MissionId).GoalValue;
+                                            var sumofactionvalues = @item.Timesheets.Where(m => m.MissionId == @item.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                            var currentvalue = maxvalue - sumofactionvalues;
+                                            <div class="deadlinefont"><progress max="@maxvalue" value="@sumofactionvalues"></progress></div>
+
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-direction-row justify-content-between">
+                                    @{
+                                        <span class="deadline">@sumofactionvalues achieved</span>
+                                    }
+
+                                </div>
+                            }
+
+                            <div class="d-flex justify-content-center mb-1">
+                                @{
+                                    var check = @Model.MissionApplication.FirstOrDefault(m => m.MissionId == @item.MissionId && m.UserId == @Model.user.UserId && m.ApprovalStatus != "DECLINE");
+
+                                    if (@item.MissionType == "TIME")
+                                    {
+                                        var sheets = @item.TotalSheet - @Model.MissionApplication.Where(mission => mission.MissionId == @item.MissionId).Count();
+                                        if (sheets > 0 && @item.EndDate >= DateTime.Now && @item.Deadline >= DateTime.Now)
+                                        {
+                                            if (check != null)
+                                            {
+
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    View Details <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    Apply <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a type="button" class="btn btn_hover_for_landing1 btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                Mission Closed 
+                                            </a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var maxvalue = @item.GoalMissions.FirstOrDefault(m => m.MissionId == @item.MissionId).GoalValue;
+                                        var sumofactionvalues = @item.Timesheets.Where(m => m.MissionId == @item.MissionId && m.DeletedAt == null).Sum(sum => sum.Action);
+                                        var currentvalue = maxvalue - sumofactionvalues;
+                                        if (currentvalue > 0 && @item.EndDate >= DateTime.Now)
+                                        {
+                                            if (check != null)
+                                            {
+
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    View Details <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a type="button" class="btn btn_hover_for_landing btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                    Apply <img src="~/Assest/right-arrow.png" alt="">
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a type="button" class="btn btn_hover_for_landing1 btn_border w-25 h-auto" asp-controller="Mission" asp-action="Volunteering" asp-route-id="@item.MissionId">
+                                                 Mission Closed
+                                            </a>
+                                        }
+
+                                    }
+
+
+                                }
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            }
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+}
+
+else
+{
+    <p class="d-none" id="PartialMissionCount">@Model.Mission.Count()</p>
+
+    <!-- mission not found section -->
+    <div id="for_nomission_found">
+        <div id="MissionNotFound" class="container mt-5 text-center justify-content-center align-items-center">
+            <h2>No Mission Found</h2>
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="mt-2 apply__button   w-75 text-center apply__button">
+                    <a asp-controller="Mission" asp-action="Landing" id="Reload_page" class="btn rounded-pill text-center btn_no">
+                        Submit new mission <img src="~/Assest/right-arrow.png" class="ms-2">
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+<script>
+    function Grid_View() {
+        document.getElementById("list-view").style.display = "none";
+        document.getElementById("grid-view").style.display = "block";
+    }
+
+    function List_View() {
+        document.getElementById("list-view").style.display = "block";
+        document.getElementById("grid-view").style.display = "none";
+    }
+
+    function NoFound_View(){
+
+    }
+
+</script>

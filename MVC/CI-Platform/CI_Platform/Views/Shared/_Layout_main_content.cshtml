@@ -1,0 +1,163 @@
+﻿@*@model CI_Platform.Entities.Models.User;*@
+@model CI_Platform.Entities.ViewModel.Mission_data
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
+</head>
+
+<body>
+    <partial name="_Notification" />
+    <script>
+        function Grid_View() {
+            document.getElementById("list-view").style.display = "none";
+            document.getElementById("grid-view").style.display = "block";
+        }
+
+        function List_View() {
+            document.getElementById("list-view").style.display = "block";
+            document.getElementById("grid-view").style.display = "none";
+        }
+    </script>
+
+
+
+    <!-- 1) HEADER -->
+
+
+    <nav class="navbar navbar-expand-md navbar-light border-bottom">
+        <div class="container">
+            <div class="d-flex d-block d-md-none justify-content-between">
+                <div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon "></span>
+                    </button>
+                </div>
+                <div>
+                    @if (@Model.user.Avatar != null)
+                    {
+                        <img src="@Model.user.Avatar" alt="mdo" width="40" height="40"
+                         class="rounded-circle img12">
+                    }
+                    else
+                    {
+                        <img src="~/Assest/user1.png" alt="mdo" width="40" height="40"
+                         class="rounded-circle img12">
+                    }
+                </div>
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active link-dark" aria-current="page" asp-controller="Story" asp-action="Story">Stories</a>
+                    </li>
+                    <li class="nav-item dropdown ml-1">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy
+                        </a>
+                        <ul class="dropdown-menu" id="Policypages" aria-labelledby="navbarDropdown">
+                        </ul>
+                    </li>
+
+
+                </ul>
+                <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle link-dark" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            @{
+                                @if (@Model.user.Avatar != null)
+                                {
+                                    <img src="@Model.user.Avatar" alt="mdo" width="40" height="40"
+                                     class="rounded-circle profile_pic">
+                                <span>@Model.user.FirstName @Model.user.LastName</span>
+                                }
+                                else
+                                {
+                                    <img src="~/Assest/user1.png" alt="mdo" width="40" height="40"
+                                     class="rounded-circle profile_pic">
+                                }
+                                
+                            }
+
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="UserProfile">Profile</a></li>
+                            <li><a class="dropdown-item" asp-controller="Profile" asp-action="VolunteeringTimeSheet">Volunteering TimeSheet</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Sign out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    @RenderBody()
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <footer class="border-top mt-3 footer text-muted">
+        <div class="container d-flex align-items-center justify-content-start gap-3">
+            &copy; 2023 - CI-Platform
+
+            <a asp-controller="Policy" asp-action="PolicyPage" class="btn" style="color:blue">
+                Policy
+            </a>
+        </div>
+    </footer>
+
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+
+
+<script>
+
+    $(document).ready(function(){
+        $.ajax({
+            type: "GET",
+            url: "/Policy/CmsPagePolicy",
+            data:{ },
+            dataType:'json',
+            success: function (data) {
+                console.log(data);
+                var policy=" ";
+                for(var i=0;i<data.length;i++){
+                    policy+=`<li><a class="dropdown-item" href="/Policy/PolicyPage#${data[i].slug}">${data[i].title}</a></li>`
+                }
+                $("#Policypages").html(policy);
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+</script>

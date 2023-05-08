@@ -1,0 +1,161 @@
+﻿@{
+
+}
+
+@model CI_Platform.Entities.ViewModel.Admintables
+
+
+
+<div class="addformbody">
+    <div>
+        <h3 class="addformheader">Story Details</h3>
+    </div>
+    <div class="addformdata">
+        <form>
+            <input asp-for="@Model.StoryDetail.StoryId" id="storyid" hidden>
+            <div class="mb-3">
+                <label class="form-label">Story Title</label>
+                <input asp-for="@Model.StoryDetail.Title" class="form-control" id="storytitle" readonly>
+                <span class="text-danger" id="storytitlespan"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Mission Title :</label>
+                @{
+                    var title = @Model.MissionList.FirstOrDefault(id => id.MissionId == Model.StoryDetail.MissionId).Title;
+                    <input asp-for="@title" class="form-control" id="storymisisontitle" readonly>
+                }
+
+                <span class="text-danger" id="storymisisontitlespan"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <div class="border border-1 " style="background-color: #e9ecef;opacity: 1;padding: 0.375rem 0.75rem">
+                    @if (@Model.StoryDetail.Description != null)
+                    {
+                        @Html.Raw(@Model.StoryDetail.Description)
+                    }
+
+                </div>
+                <span class="text-danger" id="storydesc"></span>
+            </div>
+            @if (Model.storyMediaList.Count() > 0)
+            {
+                <div class="mb-3">
+                    <label lass="form-label">Story Images :</label>
+                    <div class="StoryImgContianer d-flex mt-2" style="max-width: 100%;overflow-x: scroll;">
+                        @foreach (var storyimg in Model.storyMediaList.Where(s => s.Type == "PNG"))
+                        {
+                            <div class="ms-2">
+                                <img class="StoryImg" width="150" height="150" src="@storyimg.Path" />
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label lass="form-label">Story Videos :</label>
+                    <div class="StoryVideoContianer d-flex mt-2" style="max-width: 100%;overflow-x: scroll;">
+                        @foreach (var storyvid in Model.storyMediaList.Where(s => s.Type == "URL"))
+                        {
+                            string videostring = @storyvid.Path.Replace("watch?v=", "embed/");
+                            int GetURLlength = videostring.Length;
+
+                            string check = videostring.Substring(13, 1);
+                            if (check == ".")
+                            {
+                                string GetURLValue = videostring.Substring(17);
+                                string YoutubeURL = "https://www.youtube.com/embed/" + GetURLValue + "?rel=0";
+                                Console.WriteLine(videostring);
+                                Console.WriteLine(GetURLlength);
+                                Console.WriteLine(GetURLValue);
+                                Console.WriteLine(YoutubeURL);
+                                <div class="ms-2">
+                                    <iframe width="300" height="250" src="@YoutubeURL" allowfullscreen>
+                                    </iframe>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="ms-2">
+                                    <iframe width="300" height="250" src="@storyvid.Path.Replace("watch?v=", "embed/")" allowfullscreen>
+                                    </iframe>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+        </form>
+
+        <div class="text-center">
+
+            @if (Model.StoryDetail.Status == "PENDING")
+            {
+                <button type="submit" width="30" height="30" style="border:none;background:none;" onclick="StstusCheckForStory('PUBLISHED',@Model.StoryDetail.StoryId)">
+                    <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                </button>
+
+                <button type="submit" width="30" height="30" style="border:none;background:none;" onclick="StstusCheckForStory('DECLINED',@Model.StoryDetail.StoryId)">
+                    <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                </button>
+            }
+
+            else if (Model.StoryDetail.Status == "PUBLISHED")
+            {
+                <button type="submit" width="30" height="30" disabled style="border:none;background:none;opacity:0.5;" onclick="StstusCheckForStory('PUBLISHED',@Model.StoryDetail.StoryId)">
+                    <i class="bi bi-check-circle" style="color: darkgreen ! important;"></i>
+                </button>
+
+                <button type="submit" width="30" height="30" style="border:none;background:none;" onclick="StstusCheckForStory('DECLINED',@Model.StoryDetail.StoryId)">
+                    <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                </button>
+            }
+
+            else
+            {
+                <button type="submit" style="border:none;background:none;" onclick="StstusCheckForStory('PUBLISHED',@Model.StoryDetail.StoryId)">
+                    <i class="bi bi-check-circle" width="30" height="30" style="color: darkgreen ! important;"></i>
+                </button>
+
+                <button type="submit" width="30" height="30" disabled style="border:none;background:none;opacity:0.5;" onclick="StstusCheckForStory('DECLINED',@Model.StoryDetail.StoryId)">
+                    <i class="bi bi-x-circle bg-denger" style="color: darkred ! important;"></i>
+                </button>
+
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+@*
+<script>
+    $('.StoryAdmins').on('click', function () {
+    var story = $(this).val();
+
+    var storyData = story.split(' ');
+
+    var storyObject = {
+    Id: storyData[0],
+    ActionValue: storyData[1],
+    TableName: storyData[2]
+    };
+
+    var url = "/Admin/Action";
+    var storyAction = JSON.stringify(storyObject);
+
+    $.ajax({
+    url: url,
+    type: 'POST',
+    data: { Action: storyAction },
+
+    success: function (data) {
+    window.location.reload();
+    },
+    });
+    });
+</script>*@
+
+
+

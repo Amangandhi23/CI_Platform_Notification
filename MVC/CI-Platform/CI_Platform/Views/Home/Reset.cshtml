@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Reset Page";
+    Layout = "_Layout";
+}
+@model CI_Platform.Entities.ViewModel.Reset;
+
+
+        <div class="col-xl-4 col-md-4 col-12 align-items-center d-flex flex-colum mt-4 flex-sm-row justify-content-center">
+          <form class="col-xl-10 mx-4 mt-4 sm-3 f_md align-items-center" asp-controller="Home" asp-action="Reset">
+            <div class="mb-5">
+                <h6 class="text-center">New Password</h6>
+    
+    
+                <p class="text-center">Please enter a new password in the fields below.</p>
+                <input asp-for="Token" value="@ViewBag.Email.token" name="token" hidden/>
+                <input asp-for="Email" value="@ViewBag.Email.email" name="email"  hidden/>
+                <div class="form-group mb-3">
+                    <label>New Password</label>
+                    <input type="password" asp-for="Password" class="form-control" id="pwd" placeholder="****" name="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>  
+                <div class="form-group mb-3">
+                    <label>Confirm New Password</label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control" id="pwd" placeholder="****">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="mb-2">
+                  <button type="submit" class="btn btn-outline-primary btn_border w-100 h-auto">Reset my
+                    Password</button><br>
+                </div>
+                <div class="text-center mb-5">
+                  <span class="align-items-center mb-3"><a href="./Index">Login</a></span>
+                </div>
+              </div>
+              <div class="text-center ">
+                <span md-xl-5><a href="#">privacy Policy</a></span>
+              </div>            
+            
+          </form>  
+        </div>
+
+
+        @section Scripts{
+            @{
+                <partial name="_ValidationScriptsPartial" />
+            }
+        }
