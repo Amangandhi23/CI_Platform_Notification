@@ -25,10 +25,10 @@
 
 @if (@Model.Mission.Count() > 0)
 {
-    <p class="d-none" id="PartialMissionCount">@Model.Mission.Count()</p>
+    <p class="d-none" id="PartialMissionCount">@Model.TotalMissionCount</p>
 
     <div class="container" id="grid-view">
-        <input hidden class="gridlistvalue" value="grid" type="text"> 
+        <input hidden class="gridlistvalue" value="grid" type="text">
         <div class="row" id="gridmission__row">
 
             @foreach (var item in Model.Mission)
@@ -268,7 +268,7 @@
 
 
     <div id="list-view" style="display:none;">
-    <input hidden class="gridlistvalue" value="list" type="text"> 
+        <input hidden class="gridlistvalue" value="list" type="text">
         <div class="container d-none d-md-block" id="list_view">
             @foreach (var item in Model.Mission)
             {
@@ -501,65 +501,77 @@
         {
             <ul class="pagination justify-content-center">
 
-                @if(pager.CurrentPage > 1)
+                @if (pager.CurrentPage > 1)
                 {
-                    <li class="page-item">
-                        <a class="page-link" onclick="PageChangejs(1)">
-                         First
+                    <li class="page-item pageitemclassforlanding">
+                        <a class="page-link pagelinkclassforlanding" onclick="PageChangejs(1)">
+                            First
                         </a>
                     </li>
-                    <li class="page-item">
-                        <a class="page-link" onclick="PageChangejs(@(pager.CurrentPage -1))">
-                         Previous
+                    <li class="page-item pageitemclassforlanding">
+                        <a class="page-link pagelinkclassforlanding" onclick="PageChangejs(@(pager.CurrentPage -1))">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
                         </a>
                     </li>
                 }
                 else
                 {
-                    <li class="page-item" style="opacity:0.5">
-                        <a class="page-link">
-                         First
+                    <li class="page-item pageitemclassforlanding" style="opacity:0.5">
+                        <a class="page-link pagelinkclassforlanding">
+                            First
                         </a>
                     </li>
-                    <li class="page-item" style="opacity:0.5">
-                        <a class="page-link">
-                         Previous
+                    <li class="page-item pageitemclassforlanding" style="opacity:0.5">
+                        <a class="page-link pagelinkclassforlanding">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                            </svg>
                         </a>
                     </li>
                 }
 
                 @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
                 {
-                    <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
-                        <a class="page-link" onclick="PageChangejs(@pge)">
+                    <li class="page-item pageitemclassforlanding @(pge == pager.CurrentPage ? "active" : "")">
+                        <a class="page-link pagelinkclassforlanding" onclick="PageChangejs(@pge)">
                             @pge
                         </a>
                     </li>
                 }
 
-                @if(pager.CurrentPage < pager.TotalPages)
+                @if (pager.CurrentPage < pager.TotalPages)
                 {
-                    <li class="page-item">
-                        <a class="page-link" onclick="PageChangejs(@(pager.CurrentPage + 1))">
-                         Next
+                    <li class="page-item pageitemclassforlanding">
+                        <a class="page-link pagelinkclassforlanding" onclick="PageChangejs(@(pager.CurrentPage + 1))">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
                         </a>
                     </li>
-                    <li class="page-item">
-                        <a class="page-link" onclick="PageChangejs(@pager.TotalPages)">
-                         Last
+                    <li class="page-item pageitemclassforlanding">
+                        <a class="page-link pagelinkclassforlanding" onclick="PageChangejs(@pager.TotalPages)">
+                            Last
                         </a>
                     </li>
                 }
                 else
                 {
-                    <li class="page-item" style="opacity:0.5">
-                        <a class="page-link">
-                         Next
+                    <li class="page-item pageitemclassforlanding" style="opacity:0.5">
+                        <a class="page-link pagelinkclassforlanding">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
                         </a>
                     </li>
-                    <li class="page-item" style="opacity:0.5">
-                        <a class="page-link">
-                         Last
+                    <li class="page-item pageitemclassforlanding" style="opacity:0.5">
+                        <a class="page-link pagelinkclassforlanding">
+                            Last
                         </a>
                     </li>
                 }

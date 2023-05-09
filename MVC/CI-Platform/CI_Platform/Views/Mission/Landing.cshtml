@@ -23,6 +23,7 @@
         <ul id="country_small" class="dropdown-menu text-small country_filter" aria-labelledby="dropdownUser1">
             @if (Model.Country != null)
             {
+                <li value="0"><a class="dropdown-item">All</a></li>
                 @foreach (var item in Model.Country)
                 {
                     <li value="@item.CountryId @item.Name"><a class="dropdown-item" href="#">@item.Name</a></li>
@@ -136,9 +137,10 @@
             <ul id="country" class="dropdown-menu text-small country_filter" aria-labelledby="dropdownUser1">
                 @if (Model.Country != null)
                 {
+                    <li value="0"><a class="dropdown-item">All</a></li>
                     @foreach (var item in Model.Country)
                     {
-                        <li value="@item.CountryId @item.Name"><a class="dropdown-item" href="#">@item.Name</a></li>
+                        <li value="@item.CountryId @item.Name"><a class="dropdown-item">@item.Name</a></li>
                     }
                 }
 

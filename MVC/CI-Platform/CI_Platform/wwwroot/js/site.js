@@ -8,10 +8,9 @@ let Themearr = [];
 let Skillarr = [];
 let Sortarr = [];
 let pagenumber;
-let valueofview ="";
+let valueofview =""; // this is for grid =view and list view...while applying filter we want if list view active then list view not change
 
 /*MissionCount Print */
-
 $(document).ready(function () {
     changecount();
 });
@@ -25,38 +24,57 @@ function changecount() {
 
 
 /*Country By City And City Filter functionality*/
-
 $('.country_filter li').on('click', function () {
 
     let ca = [];
     var CountryId = $(this).attr('value');
-    var lenght = CountryId.lenght;
-    var countryName = CountryId.substring(2, lenght);
-    var index = ca.indexOf(countryName);
-    console.log(CountryId.substring(2, lenght));
-    if (index == -1) {
-        ca.push(CountryId.substring(2, lenght));
+
+    if (CountryId == "0") {
+        Countryarr = [];
+        $.ajax({
+            url: '/Mission/GetCityByCountryAll',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var cities = $('.cities');
+                cities.empty();
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
+
+                });
+                cities.html(items);
+            }
+        });
     }
-    $.ajax({
-        url: '/Mission/GetCityByCountry',
-        type: 'GET',
-        data: { CountryId: CountryId.substring(0, 1) },
-        dataType: 'json',
-        success: function (data) {
-            var cities = $('.cities');
-            cities.empty();
-            var items = "";
-            $.each(data, function (i, item) {
-                items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
-
-            });
-            cities.html(items);
+    else {
+        var lenght = CountryId.lenght;
+        var countryName = CountryId.substring(2, lenght);
+        var index = ca.indexOf(countryName);
+        console.log(CountryId.substring(2, lenght));
+        if (index == -1) {
+            ca.push(CountryId.substring(2, lenght));
         }
-    });
+        $.ajax({
+            url: '/Mission/GetCityByCountry',
+            type: 'GET',
+            data: { CountryId: CountryId.substring(0, 1) },
+            dataType: 'json',
+            success: function (data) {
+                var cities = $('.cities');
+                cities.empty();
+                var items = "";
+                $.each(data, function (i, item) {
+                    items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
 
-    Countryarr.length = 0;                  // Clear contents
-    Countryarr.push.apply(Countryarr, ca);  // Append new contents
-    console.log(Countryarr + "Aman");
+                });
+                cities.html(items);
+            }
+        });
+
+        Countryarr.length = 0;                  // Clear contents
+        Countryarr.push.apply(Countryarr, ca);  // Append new contents
+    }
     $('#filter_btn').click();
 });
 
@@ -115,7 +133,6 @@ $('.skill').on('change', function () {
 
 
 /*Filter Fnctionality With Sorting And Searching */
-
 $('#filter_btn').on('click', function () {
     console.log("hii");
     console.log(Countryarr);

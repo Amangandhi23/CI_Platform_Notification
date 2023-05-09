@@ -74,6 +74,7 @@ namespace CI_Platform.Entities.ViewModel
 
         public int EndPage { get; private set; }
 
+        public int TotalMissionCount { get; set; }
 
         public Mission_data()
         {

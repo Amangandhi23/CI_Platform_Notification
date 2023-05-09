@@ -7,8 +7,20 @@
     margin-left: 40px;
 }
 
-.hide{
-    display:none;
+
+.pageitemclassforlanding.active .pagelinkclassforlanding{
+    background-color:orangered;
+    border-color:orangered;
+}
+.pageitemclassforlanding .pagelinkclassforlanding {
+    background-color: white;
+    border-color: orangered;
+    color:orangered;
+}
+
+
+.hide {
+    display: none;
 }
 
 .dropdown-menu {

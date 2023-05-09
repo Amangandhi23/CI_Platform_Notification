@@ -41,10 +41,11 @@ namespace CI_Platform.Controllers
             Mission_data md = _missiondata.GetMissiondata();
             md.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
             md.User = _volunteerRepository.Getuser_data();
+            md.TotalMissionCount = md.Mission.Count();
 
 
 
-            const int pageSize = 6;
+            const int pageSize = 3;
             if (pg < 1)
             {
                 pg = 1;
@@ -58,8 +59,6 @@ namespace CI_Platform.Controllers
             md.Mission = md.Mission.Skip(recSkip).Take(pager.PageSize).ToList();
 
             this.ViewBag.Pager = pager;
-
-
 
 
             var session_data = HttpContext.Session.GetString("Login");
@@ -78,6 +77,11 @@ namespace CI_Platform.Controllers
             var cities = _db.Cities.Where(c => c.CountryId == CountryId).ToList();
             return Json(cities);
         }
+        public IActionResult GetCityByCountryAll(long CountryId)
+        {
+            var cities = _db.Cities.ToList();
+            return Json(cities);
+        }
 
 
         public IActionResult GetAllFilterData(string[] country,  string[] city, string[] skill, string[] theme, string sort,string search , int page)
@@ -93,9 +97,9 @@ namespace CI_Platform.Controllers
             ms.User = _volunteerRepository.Getuser_data();
             ms.Mission = filter;
 
+            ms.TotalMissionCount = ms.Mission.Count();
 
-
-            const int pageSize = 6;
+            const int pageSize = 3;
             if (page < 1)
             {
                 page = 1;
@@ -109,6 +113,8 @@ namespace CI_Platform.Controllers
             ms.Mission = ms.Mission.Skip(recSkip).Take(pager.PageSize).ToList();
 
             this.ViewBag.Pager = pager;
+
+            
 
             return PartialView("_Missions", ms);
 
