@@ -64,26 +64,26 @@ function FillUserData(userid) {
     console.log(userid);
 
 
-    
-        $.ajax({
-            url: '/Admin/FillUserData',
-            type: 'POST',
-            data: { userid: userid },
-            success: function (data) {
-                $('.UserAddData').empty();
-                $('.UserAddData').html(data);
-                console.log(data);
-            },
-            error: function (data) {
-                debugger
-                console.log(data);
-            }
 
-        });
-    
-    
+    $.ajax({
+        url: '/Admin/FillUserData',
+        type: 'POST',
+        data: { userid: userid },
+        success: function (data) {
+            $('.UserAddData').empty();
+            $('.UserAddData').html(data);
+            console.log(data);
+        },
+        error: function (data) {
+            debugger
+            console.log(data);
+        }
 
-    
+    });
+
+
+
+
 }
 
 
@@ -159,7 +159,7 @@ function AddUserData() {
             flag = false;
         }
     }
-    
+
 
     if (flag) {
         var formData = new FormData();
@@ -193,7 +193,7 @@ function AddUserData() {
 
 
 
-    
+
 }
 
 
@@ -294,7 +294,7 @@ function AddMissionData() {
 
 
     let flag = true;
-    
+
     if (title.trim() == "") {
         document.getElementById("tspan").style.display = "block";
         flag = false;
@@ -305,15 +305,15 @@ function AddMissionData() {
     }
     if (OName.trim() == "") {
         document.getElementById("onspan").style.display = "block";
-        flag = false; 
+        flag = false;
     }
     if (startdate == "") {
         document.getElementById("startdspan").style.display = "block";
-        flag = false; 
+        flag = false;
     }
     if (enddate == "") {
         document.getElementById("enddspan").style.display = "block";
-        flag = false; 
+        flag = false;
     }
     if (startdate > enddate) {
         $('#enddspan').text('End date must be grater then startdate');
@@ -340,18 +340,18 @@ function AddMissionData() {
             flag = false;
         }
     }
-    
+
     if (availability == "-1") {
         document.getElementById("avspan").style.display = "block";
-        flag = false; 
+        flag = false;
     }
     if (themeid == "-1") {
         document.getElementById("themespan").style.display = "block";
-        flag = false; 
+        flag = false;
     }
     if (countryid == "-1") {
         document.getElementById("countryspan").style.display = "block";
-        flag = false; 
+        flag = false;
     }
 
     if (flag) {
@@ -465,7 +465,7 @@ function AddMissionData() {
 
 
 
-    
+
 }
 
 
@@ -473,7 +473,7 @@ function GetMissionData(MissionId) {
     $.ajax({
         url: '/Admin/GetMissionDataForEdit',
         type: 'POST',
-        data: {MissionId:MissionId},
+        data: { MissionId: MissionId },
         success: function (data) {
             console.log(data);
             $('.MissionData').empty();
@@ -491,6 +491,8 @@ function GetMissionData(MissionId) {
 
 
 function ReturnMissionPage() {
+    $('#document').empty();
+    $('#documents-container').empty();
     $.ajax({
         url: '/Admin/PartialViewForAdminMission',
         type: 'POST',
@@ -549,7 +551,7 @@ function AddthemeData() {
         });
     }
 
-    
+
 }
 
 function themestatus(statusval, Id) {
@@ -648,7 +650,7 @@ function Viewdetail(id) {
     $.ajax({
         url: '/Admin/StoryDetailPage',
         type: 'POST',
-        data: {Storyid: id },
+        data: { Storyid: id },
         success: function (data) {
             $('.Storyforajax').empty();
             $('.Storyforajax').html(data);
@@ -899,7 +901,7 @@ function AddEditCMSData() {
                 else {
                     toastr.success("Cms Page data Edit Successfully!");
                 }
-                
+
             },
             error: function (error) {
                 toastr.success("Slug already exsist please use another slug");
@@ -941,7 +943,7 @@ function EditCms(id) {
             $('.CMSData').empty();
             $('.CMSData').html(data);
             CKEDITOR.replace('content');
-            
+
         },
         error: function (error) {
             console.log(error);

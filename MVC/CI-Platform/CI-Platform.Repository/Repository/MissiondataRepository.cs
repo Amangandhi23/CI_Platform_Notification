@@ -17,7 +17,7 @@ namespace CI_Platform.Repository.Repository
         private IMissionRepository _mission;
 
 
-        public MissiondataRepository(CiPlatformContext db,ICountryRepository countryname, ICityRepository cityname, ISkillRepository skillname, IThemeRepository themename, IMissionRepository mission)
+        public MissiondataRepository(CiPlatformContext db, ICountryRepository countryname, ICityRepository cityname, ISkillRepository skillname, IThemeRepository themename, IMissionRepository mission)
         {
             _db = db;
             _countryname = countryname;
@@ -44,7 +44,10 @@ namespace CI_Platform.Repository.Repository
             missiondata.Skill = skill.Where(skillid => skillid.DeletedAt == null && skillid.Status == 1);
 
             List<MissionTheme> theme = _themename.GetThemeData();
-            missiondata.MissionTheme = theme.Where(themeid => themeid.DeletedAt == null && themeid.Status == 1); ;
+            missiondata.MissionTheme = theme.Where(themeid => themeid.DeletedAt == null && themeid.Status == 1);
+
+            List<MissionTheme> exploretheme = _themename.GetThemeData();
+            missiondata.ExploreMissionTheme = exploretheme.Where(themeid => themeid.DeletedAt == null && themeid.Status == 1).OrderByDescending(mission => mission.Missions.Where(mission => mission.DeletedAt == null && mission.Status == "1").Count()).Take(5).ToList();
 
             List<Comment> commment = _db.Comments.ToList();
             missiondata.comments = commment;
@@ -55,7 +58,7 @@ namespace CI_Platform.Repository.Repository
             List<Mission> mission = _mission.GetMissionData().Where(mission => mission.DeletedAt == null && mission.Status == "1" && mission.Theme.DeletedAt == null).ToList();
             missiondata.Mission = mission;
 
-            
+
 
             List<FavoriteMission> fm = _db.FavoriteMissions.ToList();
             missiondata.FavoriteMission = fm;
@@ -67,7 +70,7 @@ namespace CI_Platform.Repository.Repository
         }
 
 
-        public IEnumerable<Mission> ApplyFilter(string[] country, string[] city, string[] skill, string[] theme, string sort, long userid, string search)
+        public IEnumerable<Mission> ApplyFilter(string[] country, string[] city, string[] skill, string[] theme, string sort, long userid, string search, string Explore)
         {
             Mission_data missionobj = GetMissiondata();
             IEnumerable<Mission> missions = missionobj.Mission;
@@ -290,7 +293,30 @@ namespace CI_Platform.Repository.Repository
             }
 
 
-            if (country.Length == 0 && city.Length == 0 && theme.Length == 0 && skill.Length == 0)
+
+            if (Explore != "")
+            {
+                if (Explore == "Fav")
+                {
+                    filterMissions = filterMissions.OrderByDescending(fav => fav.FavoriteMissions.Count(fv => fv.DeletedAt == null)).ToList();
+                }
+                else if (Explore == "Rank")
+                {
+                    filterMissions = filterMissions.OrderByDescending(rating => rating.MissionRatings.Where(rt => rt.DeletedAt == null).Select(avgrating => avgrating.Rating).DefaultIfEmpty(0).Average()).ToList();
+                }
+                else if (Explore == "Random")
+                {
+                    Random randomlist = new Random();
+                    filterMissions = filterMissions.Concat(filterMissions).OrderBy(m => randomlist.Next()).Distinct();
+                }
+            }
+
+
+
+
+
+
+            if (country.Length == 0 && city.Length == 0 && theme.Length == 0 && skill.Length == 0 && Explore == "")
             {
                 if (search != "")
                 {
@@ -304,10 +330,10 @@ namespace CI_Platform.Repository.Repository
                     filterMissions = filterMissions.Where(missiondata => missiondata.Title.ToLower().Contains(search) || missiondata.ShortDescription.ToLower().Contains(search));
                 }
             }
-            
-            
 
-            if (country.Length == 0 && city.Length == 0 && theme.Length == 0 && skill.Length == 0 && search == "")
+
+
+            if (country.Length == 0 && city.Length == 0 && theme.Length == 0 && skill.Length == 0 && search == "" && Explore == "")
             {
                 if (sort == null)
                 {
@@ -335,11 +361,11 @@ namespace CI_Platform.Repository.Repository
                     return filterMissions.Distinct();
                 }
             }
-            
+
 
         }
 
-        public List<Mission> GetBySortF(string sort, IEnumerable<Mission> filterMissions,long userid)
+        public List<Mission> GetBySortF(string sort, IEnumerable<Mission> filterMissions, long userid)
         {
 
             if (sort == "Oldest")
@@ -351,12 +377,12 @@ namespace CI_Platform.Repository.Repository
                 return filterMissions.OrderByDescending(m => m.StartDate).ToList();
             }
             else if (sort == "Mission Type")
-            { 
+            {
                 return filterMissions.OrderBy(m => m.MissionType).ToList();
             }
             else if (sort == "My favourites")
             {
-                
+
                 return filterMissions.OrderByDescending(m => m.FavoriteMissions.Where(user => user.UserId == userid).Count()).ToList();
             }
             else if (sort == "Highest available seats")
@@ -382,4 +408,4 @@ namespace CI_Platform.Repository.Repository
         }
 
     }
-    }
+}

@@ -23,7 +23,7 @@
     display: none;
 }
 
-.dropdown-menu {
+.dmscroll {
     max-height: 150px;
     overflow: scroll;
 }

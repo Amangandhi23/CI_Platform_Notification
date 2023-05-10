@@ -12,7 +12,7 @@ namespace CI_Platform.Repository.Interface
     {
         public Mission_data GetMissiondata();
 
-        public IEnumerable<Mission> ApplyFilter(string[] country, string[] city, string[] skill, string[] theme, string sort, long userid, string search);
+        public IEnumerable<Mission> ApplyFilter(string[] country, string[] city, string[] skill, string[] theme, string sort, long userid, string search,string Explore);
 
     }
 }

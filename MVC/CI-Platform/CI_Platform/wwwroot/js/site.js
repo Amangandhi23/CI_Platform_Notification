@@ -9,6 +9,8 @@ let Skillarr = [];
 let Sortarr = [];
 let pagenumber;
 let valueofview =""; // this is for grid =view and list view...while applying filter we want if list view active then list view not change
+let Explore ="";
+
 
 /*MissionCount Print */
 $(document).ready(function () {
@@ -21,6 +23,21 @@ function changecount() {
     }, 100);
 }
 
+
+function Topfav(){
+    Explore = "Fav";
+    $('#filter_btn').click();
+}
+
+function TopRank() {
+    Explore = "Rank";
+    $('#filter_btn').click();
+}
+
+function Random() {
+    Explore = "Random";
+    $('#filter_btn').click();
+}
 
 
 /*Country By City And City Filter functionality*/
@@ -81,7 +98,6 @@ $('.country_filter li').on('click', function () {
 
 
 /*City Filter*/
-
 $('.cities').on('change', function () {
     let ca = [];
 
@@ -150,7 +166,8 @@ $('#filter_btn').on('click', function () {
             theme: Themearr,
             Sort: Sortarr,
             search: input,
-            page: pagenumber
+            page: pagenumber,
+            Explore: Explore
         },
         dataType: 'html',
 
@@ -250,6 +267,7 @@ allDropdowns.each(function () {
                     Themearr = [];
                     Skillarr = [];
                     Countryarr = [];
+                    Explore = "";
                     $('#filter_btn').click();
                 });
                 searchedFilters.prepend(pill);

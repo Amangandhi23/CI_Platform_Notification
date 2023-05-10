@@ -18,6 +18,28 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
+    <style>
+        .md_dropdown li {
+            position: relative;
+        }
+
+        .md_dropdown .dropdown-submenu {
+            display: none;
+            position: absolute;
+            left: 100%;
+            top: -7px;
+        }
+
+        .md_dropdown .dropdown-submenu-left {
+            right: 100%;
+            left: auto;
+        }
+
+        .md_dropdown > li:hover > .dropdown-submenu {
+            display: block;
+        }
+    </style>
+
 
 </head>
 
@@ -84,18 +106,51 @@
                             <a class="nav-link active link-dark" aria-current="page" asp-controller="Admin" asp-action="AdminMission">AdminPenal</a>
                         </li>
                     }
-                    <li class="nav-item dropdown ml-1">
-                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button"
+                    @*<li class="nav-item dropdown ml-1">
+                        <a class="nav-link dropdown-toggle link-dark" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Explore
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item">Top Theme</a></li>
+                        <li><a class="dropdown-item">Top Ranked</a></li>
+                        <li><a class="dropdown-item">Top Favorite</a></li>
+                        <li><a class="dropdown-item">Random</a></li>
+                        </ul>
+                        </li>*@
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Explore
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item">Top Theme</a></li>
-                            <li><a class="dropdown-item">Top Ranked</a></li>
-                            <li><a class="dropdown-item">Top Favorite</a></li>
-                            <li><a class="dropdown-item">Random</a></li>
+                        <ul class="dropdown-menu md_dropdown" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item">
+                                    Top Theme &raquo;
+                                </a>
+                                <ul class="dropdown-menu md_dropdown dropdown-submenu">
+                                    @if (Model.ExploreMissionTheme != null)
+                                    {
+                                        @foreach (var item in Model.ExploreMissionTheme)
+                                        {
+                                            @if (item.Status == 1 && item.DeletedAt == null)
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item">@item.Title</a>
+                                                </li>
+                                            }
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" onclick="TopRank()">Top Ranked</a></li>
+                            <li><a class="dropdown-item" onclick="Topfav()">Top Favorite</a></li>
+                            <li><a class="dropdown-item" onclick="Random()">Random</a></li>
                         </ul>
                     </li>
+
                 </ul>
                 <ul class="navbar-nav me-0 mb-2 mb-lg-0">
                     <li class="nav-item dropdown">

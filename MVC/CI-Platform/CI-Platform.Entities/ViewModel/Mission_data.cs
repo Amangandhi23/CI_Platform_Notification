@@ -24,6 +24,8 @@ namespace CI_Platform.Entities.ViewModel
         public IEnumerable<Timesheet> timesheetdata { get; set; }
 
         public IEnumerable<MissionTheme> MissionTheme { get; set; }
+        
+        public IEnumerable<MissionTheme> ExploreMissionTheme { get; set; }
 
         public IEnumerable<MissionMedium> MissionMedium { get; set; }
 

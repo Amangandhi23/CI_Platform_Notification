@@ -84,7 +84,7 @@ namespace CI_Platform.Controllers
         }
 
 
-        public IActionResult GetAllFilterData(string[] country,  string[] city, string[] skill, string[] theme, string sort,string search , int page)
+        public IActionResult GetAllFilterData(string[] country,  string[] city, string[] skill, string[] theme, string sort,string search , int page,string Explore)
         {
             var user_session = HttpContext.Session.GetString("Login");
             var userid = _db.Users.FirstOrDefault(m => m.Email == user_session).UserId;
@@ -92,7 +92,7 @@ namespace CI_Platform.Controllers
             ViewBag.username = _db.Users.FirstOrDefault(m => m.Email == user_session).FirstName + " " + _db.Users.FirstOrDefault(m => m.Email == user_session).LastName;
 
             Mission_data ms = _missiondata.GetMissiondata();
-            IEnumerable<Mission> filter = _missiondata.ApplyFilter(country,city,skill,theme,sort,userid,search??"");
+            IEnumerable<Mission> filter = _missiondata.ApplyFilter(country,city,skill,theme,sort,userid,search??"",Explore??"");
             ms.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
             ms.User = _volunteerRepository.Getuser_data();
             ms.Mission = filter;

@@ -181,18 +181,6 @@
 
         </div>
     </div>
-    @*<div class="col-12 col-lg-4">
-        <div class="mb-3">
-        <label>SKills</label>
-        <select asp-for="@Model.SkillId" id="skill" class="form-select mt-1 mb-3  Mission_skill" multiple aria-label="Default select example">
-        <option value="-1" selected>Select Skill</option>
-        @foreach (var item in Model.SkillList)
-        {
-        <option class="" value="@item.SkillId">@item.SkillName</option>
-        }
-        </select>
-        </div>
-        </div>*@
     <div class="col-12 col-lg-4">
         <div class="mb-3">
             <label>Skill</label>
@@ -261,9 +249,9 @@
                             <button class="mx-2 pillbtn" type="button" onclick="delDocument(@i)">X</button>
                         </div>
                         i++;
-                    }    
+                    }
                 }
-                
+
             }
         </div>
     </div>
@@ -310,60 +298,77 @@
 
 
 <script>
-    
-        function displayDocuments() {
-    let file = event.target.files;
 
-    // if user select no Document
-    if (file.length == 0) return;
+    function displayDocuments() 
+    {
+        debugger
+        let file = event.target.files;
 
-    for (let i = 0; i < file.length; i++) {
-    if (file[i].type.split("/")[1] == "doc" || file[i].type.split("/")[1] == "docx" || file[i].type.split("/")[1] == "pdf" || file[i].type.split("/")[1] == "xlsx" || file[i].type.split("/")[0] == "application") {
-    if (!documentfiles.some((e) => e.name == file[i].name))
-    documentfiles.push(file[i]);
-    }
-    else {
-    continue;
-    }
-    }
-
-    showDocuments();
-    showMissionDocumentcount();
+        // if user select no Document
+        if (file.length == 0) return;
+            for (let i = 0; i < file.length; i++) {
+                if (file[i].type.split("/")[1] == "doc" || file[i].type.split("/")[1] == "docx" || file[i].type.split("/")[1] == "pdf" || file[i].type.split("/")[1] == "xlsx" || file[i].type.split("/")[0] == "application") {
+                    if (!documentfiles.some((e) => e.name == file[i].name))
+                        documentfiles.push(file[i]);
+                }
+                else {
+                    continue;
+                }
+            }
+            showDocuments();
+            showMissionDocumentcount();
     };
+    
     / SHOW documents /
     function showDocuments() {
-    let containerDoc = document.getElementById("documents-container");
-    containerDoc.innerHTML = documentfiles.reduce((prev, curr, index) => {
-    return `${prev}
-    <div class="image">
-    <a target = "_blank" href = "${URL.createObjectURL(curr)}" class="docpill mx-1 oldDocs" > ${curr.name}</a >
-    <button class="mx-2 pillbtn" type="button" onclick="delDocument(${index})">X</button>
-    </div>`;
-
-
-
-    }, "");
-    for (let i = 0; i < documentfiles.length; i++) {
-    console.log(documentfiles[i].name);
-    }
+        let containerDoc = document.getElementById("documents-container");
+            containerDoc.innerHTML = documentfiles.reduce((prev, curr, index) => {
+                return `${prev}
+                        <div class="image">
+                        <a target = "_blank" href = "${URL.createObjectURL(curr)}" class="docpill mx-1 oldDocs" > ${curr.name}</a >
+                        <button class="mx-2 pillbtn" type="button" onclick="delDocument(${index})">X</button>
+                        </div>`;
+                }, "");
+    
+                for (let i = 0; i < documentfiles.length; i++) {
+                    console.log(documentfiles[i].name);
+                }
     }
 
     function showMissionDocumentcount() {
-    let doc = document.getElementById('document');
-    const dt = new DataTransfer();
-    for (let i = 0; i < documentfiles.length; i++) {
-    dt.items.add(documentfiles[i]);
-    }
-
-    doc.files = dt.files;
+        let doc = document.getElementById('document');
+        const dt = new DataTransfer();
+        for (let i = 0; i < documentfiles.length; i++) {
+            dt.items.add(documentfiles[i]);
+        }
+        doc.files = dt.files;
     }
 
     / DELETE Documents /
     function delDocument(index) {
-    documentfiles.splice(index, 1);
-    showDocuments();
-    showMissionDocumentcount();
+        documentfiles.splice(index, 1);
+        showDocuments();
+        showMissionDocumentcount();
     }
+
+
+    $(document).ready(function(){
+        var oldDocument = document.getElementsByClassName('oldDocs');
+            for (let i = 0; i < oldDocument.length; i++) {
+                doc = oldDocument[i];
+                let path = doc.getAttribute('href').substr(doc.getAttribute('href').lastIndexOf("/") + 1)
+                fetch(doc.getAttribute('href'))
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const file = new File([blob], path, blob)
+                        console.log(file)
+                        documentfiles.push(file)
+                        showDocuments();
+                        showMissionDocumentcount();
+                    })
+            }
+
+    });
 
 </script>
 
