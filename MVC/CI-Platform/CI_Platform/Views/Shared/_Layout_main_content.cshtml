@@ -106,19 +106,6 @@
                             <a class="nav-link active link-dark" aria-current="page" asp-controller="Admin" asp-action="AdminMission">AdminPenal</a>
                         </li>
                     }
-                    @*<li class="nav-item dropdown ml-1">
-                        <a class="nav-link dropdown-toggle link-dark" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Explore
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item">Top Theme</a></li>
-                        <li><a class="dropdown-item">Top Ranked</a></li>
-                        <li><a class="dropdown-item">Top Favorite</a></li>
-                        <li><a class="dropdown-item">Random</a></li>
-                        </ul>
-                        </li>*@
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="dropdownMenuButton"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -137,7 +124,7 @@
                                             @if (item.Status == 1 && item.DeletedAt == null)
                                             {
                                                 <li>
-                                                    <a class="dropdown-item">@item.Title</a>
+                                                    <a class="dropdown-item" onclick="TopTheme(@item.MissionThemeId)">@item.Title</a>
                                                 </li>
                                             }
                                         }
@@ -151,6 +138,28 @@
                         </ul>
                     </li>
 
+                </ul>
+                <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  link-dark" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/Assest/bell.png" alt="mdo" width="20" height="20"
+                                 class="">
+                        </a>
+                        <ul class="dropdown-menu" style="width:400px !important;" aria-labelledby="navbarDropdown">
+                            <li class="row">
+                                <div class="col-4 pl-2">
+                                    <img src="~/Assest/settings.png" />
+                                </div>
+                                <div class="col-4">
+                                    Notification
+                                </div>
+                                <div class="col-4 Justify-content-end">
+                                    <i class="bi bi-eraser-fill"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="navbar-nav me-0 mb-2 mb-lg-0">
                     <li class="nav-item dropdown">

@@ -47,7 +47,7 @@ namespace CI_Platform.Repository.Repository
             missiondata.MissionTheme = theme.Where(themeid => themeid.DeletedAt == null && themeid.Status == 1);
 
             List<MissionTheme> exploretheme = _themename.GetThemeData();
-            missiondata.ExploreMissionTheme = exploretheme.Where(themeid => themeid.DeletedAt == null && themeid.Status == 1).OrderByDescending(mission => mission.Missions.Where(mission => mission.DeletedAt == null && mission.Status == "1").Count()).Take(5).ToList();
+            missiondata.ExploreMissionTheme = exploretheme.Where(themeid => themeid.DeletedAt == null && themeid.Status == 1).OrderByDescending(mission => mission.Missions.Count(mission => mission.DeletedAt == null && mission.Status == "1")).Take(5);
 
             List<Comment> commment = _db.Comments.ToList();
             missiondata.comments = commment;
@@ -70,7 +70,7 @@ namespace CI_Platform.Repository.Repository
         }
 
 
-        public IEnumerable<Mission> ApplyFilter(string[] country, string[] city, string[] skill, string[] theme, string sort, long userid, string search, string Explore)
+        public IEnumerable<Mission> ApplyFilter(string[] country, string[] city, string[] skill, string[] theme, string sort, long userid, string search, string Explore, string Exploretheme)
         {
             Mission_data missionobj = GetMissiondata();
             IEnumerable<Mission> missions = missionobj.Mission;
@@ -308,6 +308,10 @@ namespace CI_Platform.Repository.Repository
                 {
                     Random randomlist = new Random();
                     filterMissions = filterMissions.Concat(filterMissions).OrderBy(m => randomlist.Next()).Distinct();
+                }
+                else if(Explore == "Top Theme")
+                {
+                    filterMissions = filterMissions.Where(themeid => themeid.ThemeId == Convert.ToInt64(Exploretheme)).ToList();   
                 }
             }
 

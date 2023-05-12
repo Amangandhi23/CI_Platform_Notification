@@ -9,7 +9,8 @@ let Skillarr = [];
 let Sortarr = [];
 let pagenumber;
 let valueofview =""; // this is for grid =view and list view...while applying filter we want if list view active then list view not change
-let Explore ="";
+let Explore = "";
+let ExploreTheme ="";
 
 
 /*MissionCount Print */
@@ -39,6 +40,11 @@ function Random() {
     $('#filter_btn').click();
 }
 
+function TopTheme(themeid) {
+    Explore = "Top Theme";
+    ExploreTheme = themeid;
+    $('#filter_btn').click();
+}
 
 /*Country By City And City Filter functionality*/
 $('.country_filter li').on('click', function () {
@@ -167,7 +173,8 @@ $('#filter_btn').on('click', function () {
             Sort: Sortarr,
             search: input,
             page: pagenumber,
-            Explore: Explore
+            Explore: Explore,
+            Exploretheme: ExploreTheme
         },
         dataType: 'html',
 

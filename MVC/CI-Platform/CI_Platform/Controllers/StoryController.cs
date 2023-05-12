@@ -86,7 +86,7 @@ namespace CI_Platform.Controllers
             sm.User = _db.Users;
             if(storyid != null)
             {
-                Story story = _story.GetStoryData().FirstOrDefault(m => m.StoryId == storyid);
+                Story? story = _story.GetStoryData().FirstOrDefault(m => m.StoryId == storyid);
                 var storymedia = _db.StoryMedia.Where(m => m.StoryId == storyid).ToList();
                 sm.storymedia = storymedia;
                 sm.Storydata = story;
