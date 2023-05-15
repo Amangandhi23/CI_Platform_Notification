@@ -256,7 +256,8 @@ namespace CI_Platform.Controllers
             var UId = parseObject.Value<long>("UserId");
             var loggeduserid = parseObject.Value<long>("FromUserId");
             var Email = parseObject.Value<string>("UserEmail");
-             
+            var user = _db.Users.FirstOrDefault(userid => userid.UserId == loggeduserid);
+            
             var recObj = new MissionInvite()
             {
                 MissionId = usermissionid,
@@ -269,6 +270,20 @@ namespace CI_Platform.Controllers
                 _db.MissionInvites.Add(recObj);
                 _db.SaveChanges();
                 SendmailtoFriends(Email,usermissionid);
+
+
+                var notificationdetail = new Notification
+                {
+                    Userid = UId,
+                    Relatedid = usermissionid,
+                    Notificationtype = "missionrecommandation",
+                    Notificationtext = user.FirstName + " " + user.LastName + " - " + "Recommends this Mission - " + _db.Missions.FirstOrDefault(id => id.MissionId == usermissionid).Title,
+                    Avtar = user.Avatar
+                };
+
+                _db.Notifications.Add(notificationdetail);
+                _db.SaveChanges();
+
             }
         }
 
@@ -301,7 +316,6 @@ namespace CI_Platform.Controllers
             message.Body = body;
             message.IsBodyHtml = true;
             smtp.Send(message);
-
         }
 
 
@@ -390,6 +404,45 @@ namespace CI_Platform.Controllers
 
         }
 
+
+
+        // Notification Code 
+
+        public IActionResult Chnagereadvalue(long NotificationId)
+        {
+            var data = _db.Notifications.FirstOrDefault(id => id.Notificationid == NotificationId);
+            if (data != null)
+            {
+                data.Isread = 1;
+                _db.Notifications.Update(data);
+                _db.SaveChanges();
+            }
+
+            /*var data = _db.EditIsreadValue.FromSql($ "EditIsreadValue {NotificationId}").ToList();*/
+
+
+            Mission_data notification = new Mission_data();
+            notification.notifications = _db.Notifications;
+            notification.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
+
+
+            return PartialView("_NotificationView",notification);
+        }
+
+
+        public IActionResult Notificationviewadd()
+        {
+            Mission_data notification = new Mission_data();
+            notification.notifications = _db.Notifications;
+            notification.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
+
+            return PartialView("_NotificationView", notification);
+        }
+
+        public IActionResult AddSettingview()
+        {
+            return PartialView("_NotificationSettings");
+        }
 
     }
 } 

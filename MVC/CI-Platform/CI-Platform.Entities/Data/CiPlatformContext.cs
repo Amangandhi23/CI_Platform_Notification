@@ -50,6 +50,8 @@ public partial class CiPlatformContext : DbContext
 
     public virtual DbSet<MissionTheme> MissionThemes { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
     public virtual DbSet<PasswordReset> PasswordResets { get; set; }
 
     public virtual DbSet<Skill> Skills { get; set; }
@@ -669,6 +671,45 @@ public partial class CiPlatformContext : DbContext
                 .HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.HasKey(e => e.Notificationid).HasName("PK__Notifica__4BA4C3716004345E");
+
+            entity.ToTable("notification");
+
+            entity.Property(e => e.Notificationid).HasColumnName("notificationid");
+            entity.Property(e => e.Avtar)
+                .HasMaxLength(50)
+                .HasColumnName("avtar");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("deleted_at");
+            entity.Property(e => e.IsClear).HasColumnName("isClear");
+            entity.Property(e => e.Isread).HasColumnName("isread");
+            entity.Property(e => e.Notificationtext)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("notificationtext");
+            entity.Property(e => e.Notificationtype)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("notificationtype");
+            entity.Property(e => e.Relatedid).HasColumnName("relatedid");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.Userid).HasColumnName("userid");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Notifications)
+                .HasForeignKey(d => d.Userid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Notificat__useri__38EE7070");
+        });
+
         modelBuilder.Entity<PasswordReset>(entity =>
         {
             entity.HasKey(e => new { e.Email, e.Token }).HasName("PK__password__07C76CC2DFFC4EAB");
@@ -869,6 +910,7 @@ public partial class CiPlatformContext : DbContext
             entity.Property(e => e.Avatar)
                 .HasMaxLength(2048)
                 .IsUnicode(false)
+                .HasDefaultValueSql("('/Assest/user1.png')")
                 .HasColumnName("avatar");
             entity.Property(e => e.CityId)
                 .HasDefaultValueSql("((1))")

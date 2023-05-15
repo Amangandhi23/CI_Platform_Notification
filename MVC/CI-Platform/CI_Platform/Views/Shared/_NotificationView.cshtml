@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CI_Platform.Entities.ViewModel.Mission_data
+
+
+<div class="d-flex border-bottom justify-content-between">
+    <div class="ps-2 pb-3" onclick="settingview()">
+        <img src="~/Assest/settings.png" />
+    </div>
+    <div class="pb-3">
+        Notification
+    </div>
+    <div class="pe-2 pb-3">
+        <i class="bi bi-eraser-fill"></i>
+    </div>
+</div>
+
+@if (@Model.notifications != null)
+{
+    @foreach (var item in Model.notifications)
+    {
+        @if (@item.Userid == @Model.user.UserId)
+        {
+            <div class="d-flex mb-3 border-bottom justify-content-between">
+                <div class="ps-2 pb-3 pt-3">
+                    <img src="@item.Avtar" class="rounded-circle" width="50" height="50" />
+                </div>
+                <div class="pb-3 px-2 pt-3">
+                    @item.Notificationtext
+                </div>
+                <div class="pe-2 pb-3 pt-3">
+                    @if (@item.Isread != 0)
+                    {
+                        <img src="~/Assest/checked.png" width="10" height="10" />
+                    }
+                    else
+                    {
+                        <img src="~/Assest/orangedot.png" width="10" height="10" onclick="readnotification(@item.Notificationid)" />
+                    }
+                </div>
+            </div>
+        }
+
+    }
+}

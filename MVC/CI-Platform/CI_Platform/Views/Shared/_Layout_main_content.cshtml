@@ -146,18 +146,8 @@
                             <img src="~/Assest/bell.png" alt="mdo" width="20" height="20"
                                  class="">
                         </a>
-                        <ul class="dropdown-menu" style="width:400px !important;" aria-labelledby="navbarDropdown">
-                            <li class="row">
-                                <div class="col-4 pl-2">
-                                    <img src="~/Assest/settings.png" />
-                                </div>
-                                <div class="col-4">
-                                    Notification
-                                </div>
-                                <div class="col-4 Justify-content-end">
-                                    <i class="bi bi-eraser-fill"></i>
-                                </div>
-                            </li>
+                        <ul class="dropdown-menu NotificationPartialView" style="width:400px !important;" onclick="event.stopPropagation()" aria-labelledby="navbarDropdown">
+                            <partial name="_NotificationView" />
                         </ul>
                     </li>
                 </ul>

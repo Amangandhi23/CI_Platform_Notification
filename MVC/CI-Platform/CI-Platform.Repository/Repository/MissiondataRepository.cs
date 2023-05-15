@@ -58,7 +58,8 @@ namespace CI_Platform.Repository.Repository
             List<Mission> mission = _mission.GetMissionData().Where(mission => mission.DeletedAt == null && mission.Status == "1" && mission.Theme.DeletedAt == null).ToList();
             missiondata.Mission = mission;
 
-
+            List<Notification> notification = _db.Notifications.ToList();
+            missiondata.notifications = notification;
 
             List<FavoriteMission> fm = _db.FavoriteMissions.ToList();
             missiondata.FavoriteMission = fm;

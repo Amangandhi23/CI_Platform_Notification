@@ -33,6 +33,8 @@ namespace CI_Platform.Entities.ViewModel
 
         public IEnumerable<Comment> Comment { get; set; }   
 
+        public IEnumerable<Notification> notifications { get; set; }
+
         public IEnumerable<MissionApplication> MissionApplication { get; set; } 
 
         public IEnumerable<MissionApplication> Related_MissionApplication { get; set; }

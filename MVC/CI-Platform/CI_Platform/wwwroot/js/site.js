@@ -329,3 +329,51 @@ function search_mission() {
     $('#filter_btn').click();
 }
 
+
+
+
+/*  Notification Logic  */
+
+function readnotification(notificationid) {
+
+    $.ajax({
+        url: '/Mission/Chnagereadvalue',
+        type: 'POST',
+        data: { NotificationId : notificationid },
+        success: function (data) {
+            $('.NotificationPartialView').empty();
+            $('.NotificationPartialView').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function returnnotification() {
+    $.ajax({
+        url: '/Mission/Notificationviewadd',
+        type: 'GET',
+        success: function (data) {
+            $('.NotificationPartialView').empty();
+            $('.NotificationPartialView').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function settingview() {
+    $.ajax({
+        url: '/Mission/AddSettingview',
+        type: 'GET',
+        success: function (data) {
+            $('.NotificationPartialView').empty();
+            $('.NotificationPartialView').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
