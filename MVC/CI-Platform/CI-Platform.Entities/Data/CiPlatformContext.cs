@@ -52,6 +52,8 @@ public partial class CiPlatformContext : DbContext
 
     public virtual DbSet<Notification> Notifications { get; set; }
 
+    public virtual DbSet<NotificationSetting> NotificationSettings { get; set; }
+
     public virtual DbSet<PasswordReset> PasswordResets { get; set; }
 
     public virtual DbSet<Skill> Skills { get; set; }
@@ -708,6 +710,47 @@ public partial class CiPlatformContext : DbContext
                 .HasForeignKey(d => d.Userid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Notificat__useri__38EE7070");
+        });
+
+        modelBuilder.Entity<NotificationSetting>(entity =>
+        {
+            entity.HasKey(e => e.NotificationSettingid).HasName("PK__notifica__AAA0A18108A30C6F");
+
+            entity.ToTable("notification_setting");
+
+            entity.Property(e => e.NotificationSettingid).HasColumnName("notification_settingid");
+            entity.Property(e => e.Comments)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("comments");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.DeletedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("deleted_at");
+            entity.Property(e => e.Mission)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("mission");
+            entity.Property(e => e.MissionApplication)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("mission_application");
+            entity.Property(e => e.RecommandedMission)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("recommanded_mission");
+            entity.Property(e => e.RecommandedStory)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("recommanded_story");
+            entity.Property(e => e.Story)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("story");
+            entity.Property(e => e.Timesheet)
+                .HasDefaultValueSql("((1))")
+                .HasColumnName("timesheet");
+            entity.Property(e => e.UpdateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("update_at");
+            entity.Property(e => e.Userid).HasColumnName("userid");
         });
 
         modelBuilder.Entity<PasswordReset>(entity =>

@@ -3,6 +3,7 @@ using CI_Platform.Entities.Models;
 using CI_Platform.Entities.ViewModel;
 using CI_Platform.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -410,25 +411,24 @@ namespace CI_Platform.Controllers
 
         public IActionResult Chnagereadvalue(long NotificationId)
         {
-            var data = _db.Notifications.FirstOrDefault(id => id.Notificationid == NotificationId);
+            /*var data = _db.Notifications.FirstOrDefault(id => id.Notificationid == NotificationId);
             if (data != null)
             {
                 data.Isread = 1;
                 _db.Notifications.Update(data);
                 _db.SaveChanges();
-            }
+            }*/
 
-            /*var data = _db.EditIsreadValue.FromSql($ "EditIsreadValue {NotificationId}").ToList();*/
-
-
+            var notificationupdate = _db.Notifications.FromSqlRaw($"EditIsreadValue {NotificationId}").ToList();
+                       
             Mission_data notification = new Mission_data();
-            notification.notifications = _db.Notifications;
+            notification.notifications = notificationupdate;
             notification.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
 
 
             return PartialView("_NotificationView",notification);
         }
-
+         
 
         public IActionResult Notificationviewadd()
         {
@@ -441,8 +441,112 @@ namespace CI_Platform.Controllers
 
         public IActionResult AddSettingview()
         {
-            return PartialView("_NotificationSettings");
+            Mission_data notification = new Mission_data();
+            notification.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
+
+            return PartialView("_NotificationSettings",notification);
         }
 
+
+        public IActionResult updateNotificationSettingsValue(long Userid ,string[] settingArr)
+        {
+            if(settingArr.Length != 0)
+            {
+                var notificationsetting = _db.NotificationSettings.FirstOrDefault(id => id.Userid == Userid);
+                if(notificationsetting != null)
+                {
+
+                    // Recommanded Mission
+                    var recommandedMission = Array.Find(settingArr, element => element == "rm");
+                    if (recommandedMission != null)
+                    {
+                        notificationsetting.RecommandedMission |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.RecommandedMission &= false;
+                    }
+
+                    //Recommanded Story
+                    var recommandedStory = Array.Find(settingArr, element => element == "rs");
+                    if(recommandedStory != null)
+                    {
+                        notificationsetting.RecommandedStory |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.RecommandedStory &= false;
+                    }
+
+                    //Mission
+                    var mission = Array.Find(settingArr, element => element == "nm");
+                    if(mission != null)
+                    {
+                        notificationsetting.Mission |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.Mission &= false;
+                    }
+
+                    //TimeStemp
+                    var timestemp = Array.Find(settingArr, element => element == "vs");
+                    if(timestemp != null)
+                    {
+                        notificationsetting.Timesheet |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.Timesheet &= false;
+                    }
+
+                    //Story
+                    var story = Array.Find(settingArr, element => element == "ms");
+                    if(story != null)
+                    {
+                        notificationsetting.Story |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.Story &= false;
+                    }
+
+                    //Comment
+                    var cmnt = Array.Find(settingArr, element => element == "comment");
+                    if(cmnt != null)
+                    {
+                        notificationsetting.Comments |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.Comments &= false;
+                    }
+
+                    //Mission_Application
+                    var missionapplication = Array.Find(settingArr, element => element == "ma");
+                    if(missionapplication != null)
+                    {
+                        notificationsetting.MissionApplication |= true;
+                    }
+                    else
+                    {
+                        notificationsetting.MissionApplication &= false;
+                    }
+
+
+                    notificationsetting.UpdateAt = DateTime.Now;
+                    _db.NotificationSettings.Update(notificationsetting);
+                    _db.SaveChanges();
+                }
+                
+            }
+
+            Mission_data notification = new Mission_data();
+            notification.notifications = _db.Notifications;
+            notification.user = _db.Users.FirstOrDefault(m => m.Email == HttpContext.Session.GetString("Login"));
+
+
+            return PartialView("_NotificationView",notification);
+        }
     }
 } 

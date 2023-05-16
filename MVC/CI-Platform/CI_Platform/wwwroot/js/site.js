@@ -63,7 +63,7 @@ $('.country_filter li').on('click', function () {
                 cities.empty();
                 var items = "";
                 $.each(data, function (i, item) {
-                    items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
+                    items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 checkfilter clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
 
                 });
                 cities.html(items);
@@ -88,7 +88,7 @@ $('.country_filter li').on('click', function () {
                 cities.empty();
                 var items = "";
                 $.each(data, function (i, item) {
-                    items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
+                    items += `<li class="ms-2"><input type="checkbox" class="form-check-input me-3 checkfilter clscity"  id="exampleCheck1" value=` + item.name + `><label class="form-check-label" for="exampleCheck1" >` + item.name + `</label></li>`
 
                 });
                 cities.html(items);
@@ -213,7 +213,7 @@ function PageChangejs(pageNumber) {
 /*Code For Pills*/
 
 let searchedFilters = $("#clear-item");
-let allDropdowns = $('.dropdown ul');
+let allDropdowns = $('.checkfilter ul');
 allDropdowns.each(function () {
     let dropdown = $(this);
     $(this).on('change', 'input[type="checkbox"]', function () {
@@ -329,6 +329,32 @@ function search_mission() {
     $('#filter_btn').click();
 }
 
+
+
+
+/*Notification Settings Logic */
+
+function Notificationsettingschange(userid) {
+    let temp = [];
+    $('.nsettings1').find('.ns:checked').each(function () {
+            temp.push(this.value);
+    });
+    console.log(temp);
+    $.ajax({
+        url: '/Mission/updateNotificationSettingsValue',
+        type: 'POST',
+        data: { Userid: userid , settingArr : temp},
+        success: function (data) {
+            $('.NotificationPartialView').empty();
+            $('.NotificationPartialView').html(data);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+
+}       
 
 
 
